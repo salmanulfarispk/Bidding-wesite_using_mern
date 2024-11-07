@@ -5,8 +5,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const userRoute=require('./routes/userRoute')
+const productRoute=require('./routes/productRoute')
 const errorHandler=require('./middleware/errorHandler')
-
+const path=require('path')
 
 
 const app = express();
@@ -33,7 +34,12 @@ const PORT = process.env.PORT || 5000;
 app.use(errorHandler)
 
 //Routes Middleware
-app.use("/api/users", userRoute);
+app.use("/api/user", userRoute);
+app.use("/api/product", productRoute);
+
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 
 

@@ -21,11 +21,4 @@ router.get('/estimate-Income',protect,isAdmin,estimateIncome)
  
 
 
-
-
-
-
-
-
-
 module.exports = router;
