@@ -173,7 +173,6 @@ const getUser = asynchandler(async (req, res) => {
 
   const getUserBalance= asynchandler(async(req,res)=>{
    
-
     const user = await User.findById(req.user.id);
 
     if (!user) {
@@ -184,8 +183,43 @@ const getUser = asynchandler(async (req, res) => {
     res.status(200).json({
       balance: user.balance,
     });
-    
+
   })
+
+
+  //admin 
+
+  const getAllUsers=asynchandler(async(req,res)=>{
+    const userList = await User.find({});
+
+    if (!userList.length) {
+      return res.status(404).json({ message: "No user found" });
+    }
+  
+    res.status(200).json(userList); 
+  });
+
+
+
+
+  const estimateIncome = asynchandler(async (req, res) => {
+
+    try {
+
+      const admin = await User.findOne({ role: "admin" });
+      if (!admin) {
+        return res.status(404).json({ error: "Admin user not found" });
+      }
+      const commissionBalance = admin.commissionBalance;
+
+      res.status(200).json({ commissionBalance });
+
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+    
+  });
 
 
 
@@ -197,6 +231,8 @@ module.exports = {
     logoutUser,
     loginAsSeller,
     getUser,
-    getUserBalance
+    getUserBalance,
+    getAllUsers,
+    estimateIncome
  
   };
