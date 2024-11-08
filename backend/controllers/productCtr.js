@@ -243,11 +243,119 @@ const getAllProductsofloginedUser =asyncHandler(async(req,res)=>{
 
 
 
+const verifyAndAddCommissionProductByAmdin =asyncHandler(async(req,res)=>{
+   
+  const { commission } = req.body;
+  const { id } = req.params;
+
+  const product = await Product.findById(id);
+  if (!product) {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+
+  product.isverify = true;
+  product.commission = commission;
+
+  await product.save();
+
+  res.status(200).json({ message: "Product verified successfully", data: product });
+
+});
+
+
+
+const getAllProductsByAmdin = asyncHandler(async(req,res)=>{
+
+  const products = await Product.find({}).sort("-createdAt").populate("user");
+
+  const productsWithPrices = await Promise.all(
+    products.map(async (product) => {
+      const latestBid = await BiddingProduct.findOne({ product: product._id }).sort("-createdAt");
+      const biddingPrice = latestBid ? latestBid.price : product.price;
+      return {
+        ...product._doc,
+        biddingPrice, // Adding the price field
+      };
+    })
+  );
+
+  res.status(200).json(productsWithPrices);
+
+});
+
+
+
+  const deleteProductsByAmdin = asyncHandler(async (req, res) => {
+  try {
+    const { productIds } = req.body;
+
+    const result = await Product.findOneAndDelete({ _id: productIds });
+
+    res.status(200).json({ message: `${result.deletedCount} products deleted successfully` });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+const getProductBySlug= asyncHandler(async(req,res)=>{
+
+  const { id } = req.params;
+  const product = await Product.findById(id);
+  if (!product) {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+  res.status(200).json(product);
+
+});
+
+
+
+const getAllSoldProducts = asyncHandler(async (req, res) => {
+
+  const product = await Product.find({ isSoldout: true }).sort("-createdAt").populate("user");
+  res.status(200).json(product);
+
+});
+
+
+
+const getWonProducts = asyncHandler(async(req,res)=>{
+
+  const userId = req.user._id;
+
+  const wonProducts = await Product.find({ soldTo: userId }).sort("-createdAt").populate("user");
+
+  const productsWithPrices = await Promise.all(
+    wonProducts.map(async (product) => {
+      const latestBid = await BiddingProduct.findOne({ product: product._id }).sort("-createdAt");
+      const biddingPrice = latestBid ? latestBid.price : product.price;
+      return {
+        ...product._doc,
+        biddingPrice, // Adding the price field
+      };
+    })
+  );
+
+  res.status(200).json(productsWithPrices);
+
+});
+
+
 
 module.exports ={
     createProduct,
     getAllproducts,
     deleteProduct,
     updateProduct,
-    getAllProductsofloginedUser
+    getAllProductsofloginedUser,
+    verifyAndAddCommissionProductByAmdin,
+    getAllProductsByAmdin,
+    deleteProductsByAmdin,
+    getProductBySlug,
+    getAllSoldProducts,
+    getWonProducts
 }
