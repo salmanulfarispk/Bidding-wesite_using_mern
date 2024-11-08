@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const userRoute=require('./routes/userRoute')
 const productRoute=require('./routes/productRoute')
 const biddingRoute=require('./routes/biddingRoute')
+const categoryRoute=require('./routes/categoryRoute')
 const errorHandler=require('./middleware/errorHandler')
 const path=require('path')
 
@@ -38,9 +39,10 @@ app.use(errorHandler)
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/bidding", biddingRoute);
+app.use("/api/category", categoryRoute);
 
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // middleware for takes stored images from upload folder
 
 
 
