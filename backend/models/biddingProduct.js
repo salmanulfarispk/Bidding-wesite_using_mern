@@ -20,4 +20,5 @@ const BiddingProductSchema = mongoose.Schema(
   { timestamps: true }
 );
 const biddingproduct = mongoose.model("BiddingProduct", BiddingProductSchema);
+
 module.exports = biddingproduct;

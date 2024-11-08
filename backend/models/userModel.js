@@ -43,6 +43,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
+
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
@@ -52,6 +53,7 @@ userSchema.pre("save", async function (next) {
   this.password = hashedPassword;
   next();
 });
+
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
