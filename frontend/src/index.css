@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 4;
+    transition: background-color 0.3s ease;
+  }
