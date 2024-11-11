@@ -1,5 +1,5 @@
 import React from 'react'
-import {Hero} from '../../router/index.js'
+import {Hero,CategorySlider,ProductList} from '../../router/index.js'
 
 
 export const Home = () => {
@@ -7,6 +7,9 @@ export const Home = () => {
     <div>
 
         <Hero />
+        <CategorySlider />
+        <ProductList />
+
     </div>
   )
 }

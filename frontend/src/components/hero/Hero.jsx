@@ -18,6 +18,7 @@ export const Hero = () => {
     <>
       <section className="hero bg-primary py-8">
         <Container className="flex items-center justify-between md:flex-row flex-col">
+
           <div className="w-full md:w-1/2 text-white pr-12">
             <Title level={3} className="text-white">
               Build, sell & collect digital items.
@@ -26,7 +27,9 @@ export const Hero = () => {
               Nulla facilisi. Maecenas ac tellus ut ligula interdum convallis. Nullam dapibus on erat in dolor posuere, none hendrerit lectus ornare. Suspendisse sit amet turpina sagittis, ultrices
               dui et, aliquam urna.
             </Body>
+
             <SearchBox />
+
             <div className="flex items-center gap-8 my-8">
               <div>
                 <Title level={4} className=" text-white">
@@ -54,14 +57,16 @@ export const Hero = () => {
 
           <div className="w-full md:w-1/2 my-16 relative py-16">
             <img src="../images/homeimgs/hero.webp" alt="" />
-            <div className="horiz-move absolute md:top-28 top-8 left-0">
+
+            <div className="hidden md:block horiz-move absolute md:top-28 top-8 left-0">
               <Box title="Proof of quality" desc="Lorem Ipsum Dolar Amet" />
             </div>
-            <div className="horiz-move absolute bottom-72 right-0">
+            
+            <div className="hidden md:block horiz-move absolute bottom-72 right-0">
               <Box title="Safe and secure" desc="Lorem Ipsum Dolar Amet" />
             </div>
 
-            <div className="px-5 py-4 bg-white shadow-md flex items-center gap-5 rounded-xl ml-5 -mt-5 vert-move w-1/2">
+            <div className="px-5 py-4 bg-white shadow-md flex items-center gap-5 rounded-xl ml-1 md:ml-5 -mt-5 vert-move w-full md:w-1/2 ">
               <Title>58M Happy Client</Title>
               <div className="flex items-center">
                 <ProfileCard className="border-2 border-white">
@@ -83,7 +88,9 @@ export const Hero = () => {
               </div>
             </div>
           </div>
+
         </Container>
+
       </section>
 
       <div className="bg-white w-full py-16 -mt-10 rounded-t-[40px]"></div>
@@ -97,7 +104,7 @@ export const Hero = () => {
 const SearchBox = () => {
   return (
     <>
-      <form className="">
+      <form className=''>
         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-800 sr-only">
           Search
         </label>

@@ -45,6 +45,17 @@
     color: #0d775e !important;
   }
 
+  @keyframes fadeInDown {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
   .vert-move {
     animation: mover 1s infinite alternate ease-in-out;
   }
