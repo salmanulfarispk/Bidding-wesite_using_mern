@@ -349,7 +349,7 @@ export const productlists = [
       id: 1,
       title: 'Emily',
       profile: 'https://img.freepik.com/free-vector/minimalist-geometric-judith-s-tiktok-profile-picture_742173-12131.jpg?t=st=1731332984~exp=1731336584~hmac=5f0ef8b49a9784e01bf9f4e888c39a5928f7a40bf036429cbcf84bc59c46fe20&w=740',
-      amount: 150,
+      amount: 200,
     },
     {
       id: 2,
@@ -431,3 +431,75 @@ export const productlists = [
     }
   ];
   
+
+
+  export const trustList =[
+    {
+      profile:'https://avatars.mds.yandex.net/i?id=327d920adc605522f4939dcd02f242f4a176d03b-8261187-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=f924f52f62a655873ae4d57bc77b8ffb9f14c62e-12714643-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=375a98f59dbe1d60712e8a5c4e9485f405643bac-10700734-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=94faff25fd9438f1e1e57a12232e9988b6730b37-4417086-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=ba3058bfd47b13f112356b1da5ff6d46da7c146f-5249986-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=dc1186b8eaf06a18fc587e241c9ad40fb723df74-12727843-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=4d84e0044d8009f70646b6ac06969621df5ddc39-4936819-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=21cbf0daf3328c287805a2afcab64e428e1a84b1-5143110-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=09bc32c56e9321cf24b3628eae944d2dd5a981bb-5910710-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=b0f1dda4067c27a0fda797dcde5f1b3d-4378134-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=261cbbbbb831d850ed392830da5565413ef6c1c5-4820974-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=da3131b59b868503d48992d33f47f00c408f0404-8312047-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=55da8f929645f58693c665c1066149e2246b6071-9888116-images-thumbs&n=13'
+    },{
+      profile:'https://avatars.mds.yandex.net/i?id=970ebf744d69f7caad74c06ee7570e9f7373d6a0-8243281-images-thumbs&n=13'
+    }
+  ]
+
+
+
+
+
+  export const topList = [
+    {
+      category:'vehicle',
+      img1:'https://img.freepik.com/free-vector/blue-car_23-2147517001.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img2:'https://img.freepik.com/free-photo/white-offroader-jeep-parking_114579-4007.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img3:'https://img.freepik.com/free-photo/view-cool-motorcycle_23-2150704781.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img4:'https://img.freepik.com/free-photo/handsome-motorbiker-with-helmet-hands-motorcycle_1150-10691.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      total: 23
+    },
+    {
+      category:'watches',
+      img1:'https://img.freepik.com/free-photo/closeup-shot-modern-cool-black-digital-watch-with-brown-leather-strap_181624-3545.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img3:'https://img.freepik.com/free-photo/business-woman-checking-time_23-2149322941.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img4:'https://img.freepik.com/free-vector/smart-watch-realistic-image-black_1284-11873.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img2:'https://img.freepik.com/premium-photo/mens-wrist-watches-product-photography_1223255-6740.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      total: 33
+    },
+    {
+      category:'clothes',
+      img1:'https://img.freepik.com/free-photo/still-life-rendering-jackets-display_23-2149745041.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img2:'https://img.freepik.com/free-vector/gradient-suit-background_23-2151093375.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img3:'https://img.freepik.com/free-photo/model-details-wearing-blue-denim-jacket_150588-56.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img4:'https://img.freepik.com/free-photo/still-life-rendering-jackets-display_23-2149745034.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      total: 27
+    },
+    {
+      category:'sports',
+      img1:'https://img.freepik.com/premium-photo/soccer-ball-sporty-purple-shaker-variety-drinks-play-training_594847-2200.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img2:'https://img.freepik.com/free-photo/high-angle-baseball-with-bat_23-2148803967.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img3:'https://img.freepik.com/premium-photo/sport-shoes-white-background-with-clipping-path_219766-5203.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      img4:'https://img.freepik.com/premium-photo/modern-sneakers_692498-3781.jpg?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      total: 45
+    }
+  ]

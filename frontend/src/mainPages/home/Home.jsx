@@ -1,5 +1,5 @@
 import React from 'react'
-import {Hero,CategorySlider,ProductList, TopSeller, Process} from '../../router/index.js'
+import {Hero,CategorySlider,ProductList, TopSeller, Process, Trust,Topcollection} from '../../router/index.js'
 
 
 export const Home = () => {
@@ -11,7 +11,9 @@ export const Home = () => {
         <ProductList />
         <TopSeller />
         <Process />
-
+        <Trust />
+        <Topcollection />
+        
     </div>
   )
 }

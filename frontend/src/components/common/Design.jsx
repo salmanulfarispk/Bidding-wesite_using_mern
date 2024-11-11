@@ -97,6 +97,8 @@ const Heading = ({ title, subtitle }) => {
 };
 
 
+
+
 export { Title, Body, Caption, CustomLink, CustomNavLink, Container, PrimaryButton, ProfileCard, Heading, CustomNavLinkList };
 export const commonClassNameOfInput = "w-full p-4 text-sm text-gray-900 border border-gray-200 focus:ring-green focus:border-green outline-none";
 
