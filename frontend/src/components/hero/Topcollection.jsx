@@ -13,7 +13,9 @@ export const Topcollection = () => {
 
           <div className="content grid grid-cols-1 md:grid-cols-4 gap-5 mt-8">
             {topList.map((item, index) => (
+              
               <div className="bg-green_100 relative p-3 rounded-xl" key={index + 1}>
+
                 <div className="h-56">
                   <img src={item.img1} alt="" className="w-full h-full object-cover rounded-xl" />
                 </div>

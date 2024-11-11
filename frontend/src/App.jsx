@@ -1,5 +1,5 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom"
-import { Home,Layout } from './router/index.js'
+import { Home,Layout,ProductDetails} from './router/index.js'
 
 
 
@@ -14,8 +14,13 @@ const App = () => {
     <Route path="/" element={
        <Layout>
         <Home />
-      </Layout>
-    }/>
+      </Layout>  }/>
+
+      <Route path="/details/:id"  element={
+        <Layout>
+          <ProductDetails />
+        </Layout>
+      }/>
 
 
 

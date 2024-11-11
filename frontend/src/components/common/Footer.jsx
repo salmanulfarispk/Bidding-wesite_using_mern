@@ -22,7 +22,7 @@ export const Footer = () => {
 
       <Container className={`${isHomePage ? "mt-32" : "mt-0"} flex flex-col md:flex-row justify-between gap-12`}>
         <div className="w-full md:w-1/3">
-          <img src="../images/common/header-logo.png" alt="" />
+          <img src="../images/commonimgs/header-logo.png" alt="" />
           <br />
           <p className="text-gray-300">Created with the collaboration of over 60 of the worlds best Nuron Artists.</p>
           <div className="bg-gray-300 h-[1px] my-8"></div>
@@ -82,7 +82,7 @@ export const Footer = () => {
             <ul className="flex flex-col gap-5 mt-8 text-gray-200">
               <div className="flex items-center gap-2">
                 <FiPhoneOutgoing size={19} />
-                <span>(646) 968-0608</span>
+                <span>+91 8943084655</span>
               </div>
               <div className="flex items-center gap-2">
                 <MdOutlineAttachEmail size={22} />
@@ -90,7 +90,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <IoLocationOutline size={22} />
-                <span>1201 Broadway Suite</span>
+                <span>676303, calicut</span>
               </div>
             </ul>
             <div className="flex items-center mt-5 justify-between">

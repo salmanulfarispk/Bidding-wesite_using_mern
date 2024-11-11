@@ -76,7 +76,7 @@ export const categorylists=[
 
 
 export const productlists = [
-    // Watches
+    
     {
       _id: "product-1",
       image: "https://img.freepik.com/free-photo/close-up-clock-with-time-change_23-2149241166.jpg?t=st=1731327245~exp=1731330845~hmac=67d16961063b9f4f73116d8dccc550180bf4bbdc789820448df4a3601849e7b5&w=996",
@@ -98,7 +98,6 @@ export const productlists = [
       price: 120.0,
     },
   
-    // Electronics
     {
       _id: "product-3",
       image: "https://img.freepik.com/free-photo/still-life-tech-device_23-2150722691.jpg?t=st=1731327461~exp=1731331061~hmac=7e39e4e2fc5203eafcfc6df914a57d78e36d9dfff017d8107a53594229bfc1b7&w=996",
@@ -120,7 +119,7 @@ export const productlists = [
       price: 700.0,
     },
   
-    // Sports
+  
     {
       _id: "product-5",
       image: "https://img.freepik.com/free-photo/faceless-woman-checking-fitness-health-tracking-wearable-device-her-hand-unknown-female-white-top-posing-outdoor-stadium-sunset_176532-14640.jpg?t=st=1731327608~exp=1731331208~hmac=6b7ec614409d5b78412cf78ae844079a890b0b7a8929eeeb18549ec67abcb7d2&w=996",
@@ -142,7 +141,7 @@ export const productlists = [
       price: 500.0,
     },
   
-    // Real Estate
+
     {
       _id: "product-7",
       image: "https://img.freepik.com/free-photo/3d-rendering-beautiful-luxury-bedroom-suite-hotel-with-tv-working-table_105762-2016.jpg?t=st=1731327716~exp=1731331316~hmac=70afe21bbdfc90cdfcc93130dfa45b75294a6b8b3615a6dd645aa012a5fc75c7&w=996",
@@ -164,7 +163,7 @@ export const productlists = [
       price: 500000.0,
     },
   
-    // Vehicle
+
     {
       _id: "product-9",
       image: "https://img.freepik.com/free-photo/plugged-charger-into-electric-car-charge-station_1268-17715.jpg?t=st=1731327847~exp=1731331447~hmac=f773c05426eafc34a9c163a1bcfd293253d19b39ee4b33745b38e62a697b55a1&w=1060",
@@ -185,8 +184,7 @@ export const productlists = [
       biddingPrice: 5000.0,
       price: 9000.0,
     },
-  
-    // Jewelry
+
     {
       _id: "product-11",
       image: "https://img.freepik.com/free-photo/beautiful-luxury-necklace-jewelry-stand-neck_1339-7946.jpg?t=st=1731328000~exp=1731331600~hmac=31d6669fd37f5571a0c82acbaf123757d57ba2e36080dfda0c72aa2d7bc72287&w=360",

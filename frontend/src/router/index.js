@@ -9,3 +9,4 @@ export { Trust } from "../components/hero/Trust"
 export { Topcollection } from "../components/hero/Topcollection"
 export {CategoryCard} from '../components/Cards/CategoryCard'
 export {Title,Container,PrimaryButton,Body,Caption,ProfileCard,Heading} from '../components/common/Design'
+export { ProductDetails } from '../mainPages/product/ProductDetails'
