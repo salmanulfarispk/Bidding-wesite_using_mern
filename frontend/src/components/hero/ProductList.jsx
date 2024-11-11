@@ -13,7 +13,7 @@ export const ProductList = () => {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 my-8">
-            {productlists?.slice(0, 25)?.map((item, index) => (
+            {productlists?.slice(0, 12)?.map((item, index) => (
               <ProductCard item={item} key={index + 1} />
             ))}
           </div>

@@ -20,13 +20,16 @@ const Title = ({ level, children, className }) => {
   return <Heading className={`${className} ${classes}`}>{children}</Heading>;
 };
 
+
 const Body = ({ children, className }) => {
   return <p className={`${className} text-base font-normal text-[rgb(107, 113, 119)]`}>{children}</p>;
 };
 
+
 const Caption = ({ children, className }) => {
   return <p className={`${className} text-[15px] font-[500] text-gray_100`}>{children}</p>;
 };
+
 
 const CustomNavLinkList = ({ href, className, isActive, children }) => {
   const linkStyles = "text-[17px] font-medium cursor-pointer list-none hover:text-green transition-all ease-in-out";

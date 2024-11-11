@@ -343,3 +343,91 @@ export const productlists = [
     },
   ];
   
+
+  export const topSellerList = [
+    {
+      id: 1,
+      title: 'Emily',
+      profile: 'https://img.freepik.com/free-vector/minimalist-geometric-judith-s-tiktok-profile-picture_742173-12131.jpg?t=st=1731332984~exp=1731336584~hmac=5f0ef8b49a9784e01bf9f4e888c39a5928f7a40bf036429cbcf84bc59c46fe20&w=740',
+      amount: 150,
+    },
+    {
+      id: 2,
+      title: 'John',
+      profile: 'https://img.freepik.com/free-photo/crazy-man-looking-camera_23-2147808150.jpg?t=st=1731333007~exp=1731336607~hmac=5bd404d51d9188447458800177d1e156a805fb54db4899c93b7d7b019e4205c1&w=740',
+      amount: 200,
+    },
+    {
+      id: 3,
+      title: 'David',
+      profile: 'https://img.freepik.com/free-photo/waist-up-isolated-picture-handsome-young-male-with-loose-curly-hairdo-smooth-clean-face-looking-sideways-with-thoughtful-dreamy-smile-human-facial-expressions-emotions-feelings_343059-1544.jpg?t=st=1731333054~exp=1731336654~hmac=a3c4f687fbaefbf545bf3acc46f9740bfdb3051fa0f406eeac529bfd825d614d&w=996',
+      amount: 300,
+    },
+    {
+      id: 4,
+      title: 'Michael',
+      profile: 'https://img.freepik.com/free-photo/bearded-young-man-wearing-shirt_273609-5938.jpg?t=st=1731333026~exp=1731336626~hmac=6bed76353becd77961f7da8698963e6d6d8cc26cf9673ecb0d1acede5647a55b&w=996',
+      amount: 150,
+    },
+    {
+      id: 5,
+      title: 'Olivia',
+      profile: 'https://img.freepik.com/free-photo/sad-young-brunette-caucasian-girl-isolated-pink-wall-with-copy-space_141793-119087.jpg?t=st=1731333251~exp=1731336851~hmac=865c34f137b62398469fe0d612ccfafd214791dfc9e025e1a7ae9fb92893cd1a&w=826',
+      amount: 150,
+    },
+    {
+      id: 6,
+      title: 'James',
+      profile: 'https://img.freepik.com/free-photo/young-man-with-beard-round-glasses_273609-6203.jpg?t=st=1731333077~exp=1731336677~hmac=5683f39118214331e86e68a315645cb56a74ac699954bc461a52f9a35be6d2eb&w=996',
+      amount: 130,
+    },
+    {
+      id: 7,
+      title: 'Isabella',
+      profile: 'https://img.freepik.com/free-photo/picture-serious-calm-female-with-pleasant-appearance_176532-7182.jpg?t=st=1731333132~exp=1731336732~hmac=f04112ed8a2c43870d092cf4d8776d362a5438ed944978c9d651b20334834def&w=996',
+      amount: 130,
+    },
+    {
+      id: 8,
+      title: 'William',
+      profile: 'https://img.freepik.com/free-photo/handsome-confident-male-with-trendy-hairstyle-wearing-spectacles-casual-t-shirt_176532-7477.jpg?t=st=1731333102~exp=1731336702~hmac=8bfad56c7274904579bf6bd09fb3bb00195979ad104e75f213b35de5d72c84c0&w=996',
+      amount: 130,
+    },
+    {
+      id: 9,
+      title: 'Mia',
+      profile: 'https://img.freepik.com/free-photo/portrait-smiling-blonde-woman_23-2148316635.jpg?t=st=1731333147~exp=1731336747~hmac=35675084e2729d2f1bfcebc467663d5e101906abec791e17d55e75b317f5f755&w=740',
+      amount: 120,
+    },
+    {
+      id: 10,
+      title: 'Alexander',
+      profile: 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5649.jpg?t=st=1731333176~exp=1731336776~hmac=b72fd60eadbd84d5be2f168b8a37321db1efaf960e0f4e3acd9ca707276a924c&w=996',
+      amount: 110,
+    },
+  ];
+  
+
+  export const processList = [
+    {
+      cover: 'https://cdn-icons-png.freepik.com/256/5167/5167544.png?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      title: 'Sign up',
+      desc: 'Create your account quickly with just a few steps. Get instant access to the platform and start exploring the auctions.',
+    },
+    {
+      cover: 'https://cdn-icons-png.freepik.com/256/2581/2581415.png?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      title: 'Auction goes online',
+      desc: 'Once your items are listed, they go live for bidding. Buyers can place their bids, and excitement builds up as time ticks down.',
+    },
+    {
+      cover: 'https://cdn-icons-png.freepik.com/256/11838/11838998.png?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      title: 'Closing auction',
+      desc: 'As the auction ends, the highest bidder wins. Confirm the sale and proceed with the secure payment process.',
+    },
+    {
+      cover: 'https://cdn-icons-png.freepik.com/256/4127/4127077.png?ga=GA1.1.544113126.1709376566&semt=ais_hybrid',
+      title: 'The last steps',
+      desc: 'Complete any remaining formalities, arrange for delivery or pickup, and enjoy your auction success story!',
+    }
+  ];
+  
