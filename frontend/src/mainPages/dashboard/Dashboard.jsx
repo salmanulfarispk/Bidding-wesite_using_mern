@@ -15,14 +15,14 @@ export const Dashboard = () => {
   
   return (
     <>
-      <section>
+      <section className="">
         <div className="shadow-s1 p-8 rounded-lg  mb-12">
           <Title level={5} className=" font-normal">
             My Activity
           </Title>
           <hr className="my-5" />
 
-          <div className="grid grid-cols-3 gap-8 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-h-screen overflow-y-auto no-scrollbar">
             <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
               <BsCashCoin size={80} className="text-green" />
               <div>

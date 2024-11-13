@@ -33,7 +33,19 @@ const initialState = {
        const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
         return thunkAPI.rejectWithValue(errorMessage)
     }
- })
+ });
+
+
+ export const logOut= createAsyncThunk('auth/logOut',async(thunkAPI) => {
+  try {
+   
+    await authService.logout();
+    localStorage.removeItem('user')
+  } catch (error) {
+     const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+      return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
 
 const authslice = createSlice({
   name: 'auth',
@@ -67,7 +79,8 @@ const authslice = createSlice({
       toast.error(action.payload)
     })
 
-
+  
+    //login
 
     .addCase(login.pending, (state)=>{
       state.isLoading = true ;
@@ -86,6 +99,28 @@ const authslice = createSlice({
      state.message = action.payload ;
      state.user = null ;
    })
+
+   //logoout
+
+   .addCase(logOut.pending, (state)=>{
+    state.isLoading = true ;
+  })
+
+  .addCase(logOut.fulfilled, (state,action)=>{
+    state.isLoading = false ;
+    state.isSuccess= true ;
+    state.isLoggedOut=  true ;
+    state.user = null ;
+    toast.success(action.payload)
+  })
+
+  .addCase(logOut.rejected, (state,action)=>{
+   state.isLoading = false ;
+   state.isError= true ;
+   state.message = action.payload ;
+   state.user = null ;
+   toast.error(action.payload)
+ })
 
 
   }
