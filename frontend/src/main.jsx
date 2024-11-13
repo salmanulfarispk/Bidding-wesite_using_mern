@@ -8,6 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 
 
 createRoot(document.getElementById('root')).render(
+  
   <StrictMode>
    <Provider store={store}>
     <App />

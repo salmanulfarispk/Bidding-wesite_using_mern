@@ -1,5 +1,7 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom"
-import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,ScrollToTop }from './router/index.js'
+import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,ScrollToTop,Dashboard,
+   DashboardLayout
+ } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
@@ -59,7 +61,18 @@ const App = () => {
               </PrivateRoute>
             }
           />
-
+         
+         <Route path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Layout>
+                 <DashboardLayout>
+                   <Dashboard />
+                 </DashboardLayout>
+              </Layout>
+            </PrivateRoute>
+            }
+         />
 
 
 

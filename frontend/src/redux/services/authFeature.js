@@ -7,16 +7,21 @@ export const Auth_URL= `${backendUrl}/user/`
 
 const register= async(userData)=>{
     const response=await axios.post(Auth_URL+'register',userData)
-    console.log(response);
-    
     return response.data;
-}
+};
+
+
+const login= async(userData)=>{
+    const response=await axios.post(Auth_URL+'login',userData)
+    return response.data;
+};
 
 
 
 
 const authService ={
-    register
+    register,
+    login
 }
 
 export default authService

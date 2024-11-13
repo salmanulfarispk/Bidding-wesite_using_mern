@@ -1,11 +1,11 @@
 import { FaFacebook, FaGoogle } from "react-icons/fa";
-import { Caption, Container, CustomNavLink, PrimaryButton, Title } from "../../router/index";
+import { Caption, Container, CustomNavLink, PrimaryButton, Title ,Loader} from "../../router/index";
 import { commonClassNameOfInput } from "../../components/common/Design";
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { register } from "../../redux/features/authslice";
+import { register, RESET } from "../../redux/features/authslice";
 
 
 
@@ -18,14 +18,13 @@ const initialState={
 
 export const Register = () => {
 
-
    const dispatch= useDispatch()
    const navigate=useNavigate()
    const [formData,setFormData]=useState(initialState)
   
    const {name,email,password,confirmPassword}=formData 
 
-   const {isLoading,isSuccess,isLoggedIn,user,message,isError}=useSelector((state)=> state.auth)
+   const {isLoading,isSuccess,isLoggedIn,message,isError}=useSelector((state)=> state.auth)
 
 
    const handleInputChange=(e)=>{
@@ -61,8 +60,26 @@ export const Register = () => {
 
    }
 
+
+   useEffect(()=>{
+     if(isSuccess && isLoggedIn){
+       navigate('/login')
+     }
+
+     if(isError){
+      toast.error( message || 'Registration failed,Try again !')
+     }
+    
+     return ()=>{
+       dispatch(RESET())
+     }
+
+   },[dispatch,isLoggedIn,isSuccess,isError,message,navigate])
+
   return (
     <>
+
+    { isLoading && <Loader />}
       <section className="regsiter pt-16 relative">
 
         <div className="hidden md:block bg-green w-96 h-96 rounded-full opacity-20 blur-3xl absolute top-2/3"></div>
