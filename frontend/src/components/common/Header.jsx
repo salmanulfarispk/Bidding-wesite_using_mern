@@ -5,6 +5,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io5";
 import { useLocation } from 'react-router-dom'
 import {User1} from "../hero/Hero"
+import { NavLink } from 'react-router-dom'
 
 
 
@@ -112,11 +113,24 @@ export const Header = () => {
            <div ref={menuRef} className={`lg:hidden w-full p-5 absolute right-0 top-full menu-container ${isOpen ? "open" : "closed"}`}>
               {menuLists.map((list) => (
                 <li key={list.id} className="uppercase list-none">
-                  <CustomNavLink href={list.path} className={`${location.pathname === list.path ? 'text-green' : 'text-white'}`}>
+                  <CustomNavLink href={list.path} className={`${location.pathname === list.path ? 'text-green' : 'text-white'}`} onClick={()=> setIsOpen(false)}>
                     {list.link}
                   </CustomNavLink>
                 </li>
               ))}
+              <li  className={`uppercase list-none ${location.pathname === '/login' ? 'text-green' : 'text-white'}`} >
+                <NavLink to={'/login'} onClick={()=> setIsOpen(false)}>Login</NavLink>
+              </li>
+              <li  className={`uppercase list-none ${location.pathname === '/register' ? 'text-green' : 'text-white'}`}>
+               <NavLink to={'/register'} onClick={()=> setIsOpen(false)}>SignUp</NavLink>
+              </li>
+              <li  className={`uppercase list-none ${location.pathname === '/seller/login' ? 'text-green' : 'text-white'}`}>
+               <NavLink to={'/seller/login'} onClick={()=> setIsOpen(false)}>Become a seller</NavLink>
+              </li>
+              <li  className={`uppercase list-none ${location.pathname === '/dashboard' ? 'text-green' : 'text-white'}`}>
+               <NavLink to={"/dashboard"} onClick={()=> setIsOpen(false)}>Dashboard</NavLink>  {/**only if admin */}
+              </li>
+               <li className="uppercase list-none text-white">Logout</li>
             </div>
 
          
