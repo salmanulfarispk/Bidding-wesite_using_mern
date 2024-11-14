@@ -19,3 +19,4 @@ export { ScrollToTop } from '../utils/ScrollToTop'
 export { Loader } from '../components/common/Loader'
 export { Dashboard } from '../mainPages/dashboard/Dashboard'
 export { DashboardLayout } from '../components/common/layout/dashboardLayout'
+export { UserProfile } from "../mainPages/auth/UserProfile"

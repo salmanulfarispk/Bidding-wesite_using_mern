@@ -24,6 +24,8 @@ export const Login = () => {
 
   const {isLoggedIn,isError}=useSelector((state)=> state.auth)
 
+   console.log(isLoggedIn);
+   
 
   const handleInputChange=(e)=>{
     const {name,value}=e.target;

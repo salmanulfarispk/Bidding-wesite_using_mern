@@ -27,13 +27,20 @@ const getLogInStatus= async()=>{
 };
 
 
+const getUserProfile= async()=>{
+    const response=await axios.get(Auth_URL+'getUser')
+    return response.data;
+};
+
+
 
 
 const authService ={
     register,
     login,
     logout,
-    getLogInStatus
+    getLogInStatus,
+    getUserProfile
 }
 
 export default authService

@@ -8,6 +8,7 @@ const initialState = {
    users:[],
    isError: false,
    isSuccess: false,
+   isLoggedIn: !!localStorage.getItem('user'),   //If the 'user' key does not exist, it returns null.
    isLoading: false,
    message: ''
 };
@@ -18,6 +19,8 @@ const initialState = {
       
       const response= await authService.register(userData);
       localStorage.setItem('user',JSON.stringify(response))
+      return response;
+
      } catch (error) {
         const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
          return thunkAPI.rejectWithValue(errorMessage)
@@ -29,6 +32,8 @@ const initialState = {
      
      const response= await authService.login(userData);
      localStorage.setItem('user',JSON.stringify(response))
+     return response;
+
     } catch (error) {
        const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
         return thunkAPI.rejectWithValue(errorMessage)
@@ -41,6 +46,7 @@ const initialState = {
    
     await authService.logout();
     localStorage.removeItem('user')
+   
   } catch (error) {
      const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
       return thunkAPI.rejectWithValue(errorMessage)
@@ -52,6 +58,17 @@ export const getLogInstatus= createAsyncThunk('auth/status',async(thunkAPI) => {
   try {
      
     return await authService.getLogInStatus();
+  
+   } catch (error) {
+      const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+       return thunkAPI.rejectWithValue(errorMessage)
+   }
+});
+
+export const getuserProfile= createAsyncThunk('auth/userprofile',async(thunkAPI) => {
+  try {
+     
+    return await authService.getUserProfile();
   
    } catch (error) {
       const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
@@ -124,7 +141,7 @@ const authslice = createSlice({
   .addCase(logOut.fulfilled, (state,action)=>{
     state.isLoading = false ;
     state.isSuccess= true ;
-    state.isLoggedIn=  true ;
+    state.isLoggedIn=  false ;
     state.user = null ;
     toast.success(action.payload)
   })
@@ -156,6 +173,29 @@ const authslice = createSlice({
  state.message = action.payload ;
 })
 
+//userprofile
+
+.addCase(getuserProfile.pending, (state)=>{
+  state.isLoading = true ;
+})
+
+.addCase(getuserProfile.fulfilled, (state,action)=>{
+  state.isLoading = false ;
+  state.isSuccess= true ;
+  state.isLoggedIn= true ;
+  state.user= action.payload;
+  localStorage.setItem('user', JSON.stringify(action.payload))
+})
+
+.addCase(getuserProfile.rejected, (state,action)=>{
+ state.isLoading = false ;
+ state.isError= true ;
+ state.message = action.payload ;
+ localStorage.removeItem('user');
+ state.isLoggedIn= true ;
+
+})
+
 
   },
 });
@@ -166,7 +206,7 @@ export const { RESET } = authslice.actions
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn 
 export const selectUser = (state ) => state.auth.user
-export const slectIssuccess = (state) => state.auth.isSuccess
+export const selectIssuccess = (state) => state.auth.isSuccess
 
  
 

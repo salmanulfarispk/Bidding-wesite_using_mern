@@ -6,6 +6,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useLocation } from 'react-router-dom'
 import {User1} from "../hero/Hero"
 import { NavLink } from 'react-router-dom'
+import { ShowOnLogin, ShowOnLogout } from '../../utils/HiddenLinks';
 
 
 
@@ -23,7 +24,7 @@ export const Header = () => {
      setIsOpen(!isOpen)
   }
 
-  
+
   const closeMenuOutside = (event)=>{
      if(menuRef.current && !menuRef.current.contains(event.target)){
       setIsOpen(false)
@@ -82,24 +83,30 @@ export const Header = () => {
           <IoSearchOutline size={23} className={`${isScrolled || !isHomePage ? 'text-black' : 'text-white'}`}/>
 
           {role === "buyer" && (
+            <ShowOnLogin>
           <CustomNavLinkList href='/seller/login' className={`${isScrolled || !isHomePage ? 'text-black' : 'text-white'}`}>
               Become a seller
           </CustomNavLinkList>
+          </ShowOnLogin>
           )}
-
+          
+          <ShowOnLogout>
           <CustomNavLinkList href='/login' className={`${isScrolled || !isHomePage ? 'text-black' : 'text-white'}`}>
              Sign in
           </CustomNavLinkList>
-
           <CustomNavLinkList href='/register' className={`${!isHomePage || isScrolled ? "bg-green" : "bg-white"} px-8 py-2 rounded-full text-primary shadow-md`}>
              Join
           </CustomNavLinkList>
+          </ShowOnLogout>
 
+           
+             <ShowOnLogin>
             <CustomNavLink href="/dashboard">
                   <ProfileCard>
                     <img src={User1} alt="" className="w-full h-full object-cover" />
                   </ProfileCard>
                 </CustomNavLink>
+                </ShowOnLogin>
           </div>
 
            <div className={`icon flex items-center justify-center gap-6 ${isScrolled || !isHomePage ? "text-primary" : "text-white"}`}>

@@ -1,6 +1,7 @@
 import { BrowserRouter,Routes,Route} from "react-router-dom"
 import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,ScrollToTop,Dashboard,
-   DashboardLayout
+   DashboardLayout,
+   UserProfile
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -87,6 +88,19 @@ const App = () => {
             </PrivateRoute>
             }
          />
+
+           <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <UserProfile />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+            />
 
 
 
