@@ -13,12 +13,14 @@ import { FaPlusCircle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, RESET } from "../redux/features/authslice";
+import { useEffect } from "react";
 
 
 export const Sidebar = () => {
   const location = useLocation();
   const dispatch= useDispatch()
   const navigate=useNavigate()
+
 
   const role = "admin";
   const className = "flex items-center md:gap-3 mb-2 p-4 rounded-full";
@@ -27,8 +29,10 @@ export const Sidebar = () => {
   const LogoutUser= async()=>{
     dispatch(RESET())
      await dispatch(logOut())
-     navigate('/',{replace: true})
+     navigate('/')
   }
+
+
 
   return (
     <>

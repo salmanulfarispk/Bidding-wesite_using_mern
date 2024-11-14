@@ -47,6 +47,19 @@ const initialState = {
   }
 });
 
+
+export const logOutUserStatus= createAsyncThunk('auth/logOutStatus',async(thunkAPI) => {
+  try {
+   
+    await authService.logout();
+    localStorage.removeItem('user')
+  } catch (error) {
+     const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+      return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
+
+
 const authslice = createSlice({
   name: 'auth',
   initialState,
@@ -109,7 +122,7 @@ const authslice = createSlice({
   .addCase(logOut.fulfilled, (state,action)=>{
     state.isLoading = false ;
     state.isSuccess= true ;
-    state.isLoggedOut=  true ;
+    state.isLoggedIn=  true ;
     state.user = null ;
     toast.success(action.payload)
   })
