@@ -23,6 +23,7 @@ export const Header = () => {
      setIsOpen(!isOpen)
   }
 
+  
   const closeMenuOutside = (event)=>{
      if(menuRef.current && !menuRef.current.contains(event.target)){
       setIsOpen(false)
@@ -46,6 +47,8 @@ export const Header = () => {
  const isHomePage=location.pathname === '/' ;
 
  const role = "buyer";
+
+
 
   return (
    <header className={isHomePage ? `header py-1 bg-primary ${isScrolled ? 'scrolled' : ''} ` : `header bg-white shadow-s1 ${isScrolled? 'scrolled' : ''}`}>

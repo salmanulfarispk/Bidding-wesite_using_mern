@@ -48,16 +48,18 @@ const initialState = {
 });
 
 
-export const logOutUserStatus= createAsyncThunk('auth/logOutStatus',async(thunkAPI) => {
+export const getLogInstatus= createAsyncThunk('auth/status',async(thunkAPI) => {
   try {
-   
-    await authService.logout();
-    localStorage.removeItem('user')
-  } catch (error) {
-     const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
-      return thunkAPI.rejectWithValue(errorMessage)
-  }
+     
+    return await authService.getLogInStatus();
+  
+   } catch (error) {
+      const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+       return thunkAPI.rejectWithValue(errorMessage)
+   }
 });
+
+
 
 
 const authslice = createSlice({
@@ -136,11 +138,36 @@ const authslice = createSlice({
  })
 
 
-  }
+ //loginstatus
+
+ .addCase(getLogInstatus.pending, (state)=>{
+  state.isLoading = true ;
+})
+
+.addCase(getLogInstatus.fulfilled, (state,action)=>{
+  state.isLoading = false ;
+  state.isSuccess= true ;
+  state.isLoggedIn= action.payload;
+})
+
+.addCase(getLogInstatus.rejected, (state,action)=>{
+ state.isLoading = false ;
+ state.isError= true ;
+ state.message = action.payload ;
+})
+
+
+  },
 });
 
 
 
 export const { RESET } = authslice.actions
+
+export const selectIsLoggedIn = (state) => state.auth.isLoggedIn 
+export const selectUser = (state ) => state.auth.user
+export const slectIssuccess = (state) => state.auth.isSuccess
+
+ 
 
 export default authslice.reducer

@@ -6,10 +6,14 @@ import { BsCashCoin } from "react-icons/bs";
 import { MdDashboard, MdOutlineCategory } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { HiOutlineUsers } from "react-icons/hi2";
+import { UseRedirectLogoutUser } from "../../hooks/useRedirectLogoutUser";
 
 
 
 export const Dashboard = () => {
+
+  //if not logedin ,then its redoirect to login page ,if logedin and to  dashboard 
+  UseRedirectLogoutUser('/login')
 
   const role = "admin";
   

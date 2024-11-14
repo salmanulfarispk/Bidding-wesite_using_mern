@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import authService from "../redux/services/authFeature"
 
 
 export const UseRedirectLogoutUser = (path) => {
@@ -12,8 +13,8 @@ export const UseRedirectLogoutUser = (path) => {
         
         const redirectloggedOutUser = async()=>{
             try {
-                isLoggedIn='';
-                
+                isLoggedIn= await authService.getLogInStatus()
+
             } catch (error) {
                 console.log(error.message);   
             }

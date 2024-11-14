@@ -1,10 +1,13 @@
-import { BrowserRouter,Routes,Route } from "react-router-dom"
+import { BrowserRouter,Routes,Route} from "react-router-dom"
 import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,ScrollToTop,Dashboard,
    DashboardLayout
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getLogInstatus } from "./redux/features/authslice.js";
 
 
 
@@ -13,6 +16,17 @@ axios.defaults.withCredentials = true
 
 const App = () => {
 
+  const dispatch= useDispatch()
+  const { isLoggedIn }=useSelector(state => state.auth)
+ 
+    useEffect(()=>{
+     
+      dispatch(getLogInstatus())
+
+      //  if(isLoggedIn && user=== null){
+
+      //  }
+    },[dispatch])
 
   return (
    <>
