@@ -23,3 +23,4 @@ export { UserProfile } from "../mainPages/auth/UserProfile"
 export { WinningBidList } from '../mainPages/product/WinningBidList'
 export { NotFound} from '../components/common/NotFound'
 export { AddProduct } from '../mainPages/product/AddProduct'
+export { CategoryDropDown} from '../components/common/CategoryDropDown'

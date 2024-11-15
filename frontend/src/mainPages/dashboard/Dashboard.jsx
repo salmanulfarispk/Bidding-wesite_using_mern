@@ -8,8 +8,8 @@ import { NavLink } from "react-router-dom";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { UseRedirectLogoutUser } from "../../hooks/useRedirectLogoutUser";
 import { useUserProfile } from "../../hooks/useUserProfile";
-import { useDispatch } from "react-redux";
-import { getuserProfile } from "../../redux/features/authslice";
+import { useDispatch, useSelector } from "react-redux";
+import { getuserBalance, getuserProfile } from "../../redux/features/authslice";
 
 
 
@@ -19,12 +19,15 @@ export const Dashboard = () => {
   UseRedirectLogoutUser('/login')
 
   const { role }=useUserProfile()
-
+  const { income }=useSelector(state => state.auth)
   const dispatch=useDispatch()
 
   useEffect(()=>{
      dispatch(getuserProfile())
+     dispatch(getuserBalance())
   },[dispatch,])
+
+
 
   
   return (
@@ -44,7 +47,7 @@ export const Dashboard = () => {
             <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
               <BsCashCoin size={80} className="text-green" />
               <div>
-                <Title level={1}>500 </Title>
+                <Title level={1}>{income?.balance} </Title>
                 <Title>Balance</Title>
               </div>
             </div>

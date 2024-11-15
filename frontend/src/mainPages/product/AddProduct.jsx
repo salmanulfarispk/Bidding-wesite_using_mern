@@ -1,6 +1,6 @@
 import { CategoryDropDown, Caption, PrimaryButton, Title } from "../../router/index";
-
 import { commonClassNameOfInput } from "../../components/common/Design";
+import { useState } from "react";
 
 const initialState = {
   title: "",
@@ -15,6 +15,17 @@ const initialState = {
 };
 
 export const AddProduct = () => {
+
+    const [selectedFileName, setSelectedFileName] = useState('');
+    
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        setSelectedFileName(file.name); 
+      }
+
+    }
+  
   return (
     <>
       <section className="bg-white shadow-s1 p-8 rounded-xl">
@@ -71,7 +82,10 @@ export const AddProduct = () => {
           </div>
           <div>
             <Caption className="mb-2">Image </Caption>
-            <input type="file" className={`${commonClassNameOfInput}`} name="image" />
+            <input type="file" className={`${commonClassNameOfInput} hidden`} name="image" id="image-input" onChange={handleFileChange} />
+            <label htmlFor="image-input" className="w-full py-3 cursor-pointer rounded-lg bg-purple-300 text-white flex items-center justify-center">
+               {selectedFileName || 'Select Image'}
+            </label>
           </div>
           <PrimaryButton type="submit" className="rounded-none my-5">
             CREATE

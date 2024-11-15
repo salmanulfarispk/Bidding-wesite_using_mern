@@ -41,6 +41,14 @@ const loginUserAsSeller= async(userData)=>{
 };
 
 
+const getUserBalance= async()=>{
+    const response=await axios.get(Auth_URL+'sell-amount')
+    return response.data;
+};
+
+
+
+
 
 const authService ={
     register,
@@ -48,7 +56,8 @@ const authService ={
     logout,
     getLogInStatus,
     getUserProfile,
-    loginUserAsSeller
+    loginUserAsSeller,
+    getUserBalance
 }
 
 export default authService

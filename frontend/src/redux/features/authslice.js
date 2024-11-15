@@ -10,7 +10,8 @@ const initialState = {
    isSuccess: false,
    isLoggedIn: !!localStorage.getItem('user'),   //If the 'user' key does not exist, it returns null.
    isLoading: false,
-   message: ''
+   income: null,
+   message: '',
 };
 
 
@@ -95,6 +96,19 @@ export const loginAsSeller= createAsyncThunk('auth/loginAsSeller',async(userData
       return thunkAPI.rejectWithValue(errorMessage)
   }
 });
+
+
+export const getuserBalance= createAsyncThunk('auth/userBalance',async(_,thunkAPI) => {
+  try {
+     
+    return await authService.getUserBalance();
+  
+   } catch (error) {
+      const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+       return thunkAPI.rejectWithValue(errorMessage)
+   }
+});
+
 
 
 
@@ -237,6 +251,29 @@ const authslice = createSlice({
  state.message = action.payload ;
  state.user = null ;
  toast.error(action.payload);
+
+})
+
+
+// getuserbalace or getuserIncome
+
+
+.addCase(getuserBalance.pending, (state)=>{
+  state.isLoading = true ;
+})
+
+.addCase(getuserBalance.fulfilled, (state,action)=>{
+  state.isLoading = false ;
+  state.isSuccess= true ;
+  state.isLoggedIn= true ;
+  state.income= action.payload;
+})
+
+.addCase(getuserBalance.rejected, (state,action)=>{
+ state.isLoading = false ;
+ state.isError= true ;
+ state.message = action.payload ;
+ state.isLoggedIn= true ;
 
 })
 
