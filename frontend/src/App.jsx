@@ -4,7 +4,9 @@ import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,S
    UserProfile,
    WinningBidList,
    NotFound,
-   AddProduct
+   AddProduct,
+   Income,
+   UserList
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -140,7 +142,31 @@ const App = () => {
             }
           />
 
+           <Route
+            path="/admin/income"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <Income />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
 
+            <Route
+            path="/userlist"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <UserList />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
 
    </Routes>
    </BrowserRouter>

@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Sidebar } from "../../../admin/Sidebar";
+import { Sidebar } from "../../admin/Sidebar";
 import { useUserProfile } from "../../../hooks/useUserProfile";
 import { Container } from "../Design";
 import { useDispatch } from "react-redux";

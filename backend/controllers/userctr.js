@@ -195,7 +195,7 @@ const getUser = asynchandler(async (req, res) => {
   const getAllUsers=asynchandler(async(req,res)=>{
     const userList = await User.find({});
 
-    if (!userList.length) {
+    if (!userList.length || userList.length === 0) {
       return res.status(404).json({ message: "No user found" });
     }
   

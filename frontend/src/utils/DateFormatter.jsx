@@ -1,12 +1,10 @@
 import React from "react";
-const Moment = React.lazy(() => import("react-moment"));
+import moment from "moment";
 
 export const DateFormatter = ({ date }) => {
-  return (
-    <React.Suspense fallback={<span>Loading...</span>}>
-      <Moment format="D MMM YYYY" withTitle>
-        {date}
-      </Moment>
-    </React.Suspense>
-  );
+  if (!date || isNaN(new Date(date).getTime())) {
+    return <span>Invalid Date</span>;
+  }
+
+  return <span>{moment(date).format("DD MMM YYYY")}</span>;
 };

@@ -11,6 +11,7 @@ const initialState = {
    isLoggedIn: !!localStorage.getItem('user'),   //If the 'user' key does not exist, it returns null.
    isLoading: false,
    income: null,
+   commisionIncome:null,
    message: '',
 };
 
@@ -108,6 +109,31 @@ export const getuserBalance= createAsyncThunk('auth/userBalance',async(_,thunkAP
        return thunkAPI.rejectWithValue(errorMessage)
    }
 });
+
+
+export const getIncome= createAsyncThunk('auth/get-Income',async(_,thunkAPI) => {
+  try {
+     
+    return await authService.getIncome();
+  
+   } catch (error) {
+      const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+       return thunkAPI.rejectWithValue(errorMessage)
+   }
+});
+
+
+export const getAllUsers= createAsyncThunk('auth/get-allusers',async(_,thunkAPI) => {
+  try {
+     
+    return await authService.getAllUsers();
+  
+   } catch (error) {
+      const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+       return thunkAPI.rejectWithValue(errorMessage)
+   }
+});
+
 
 
 
@@ -277,7 +303,48 @@ const authslice = createSlice({
 
 })
 
+//get all estimate income or commisioned income 
 
+.addCase(getIncome.pending, (state)=>{
+  state.isLoading = true ;
+})
+
+.addCase(getIncome.fulfilled, (state,action)=>{
+  state.isLoading = false ;
+  state.isSuccess= true ;
+  state.isLoggedIn= true ;
+  state.commisionIncome= action.payload;
+})
+
+.addCase(getIncome.rejected, (state,action)=>{
+ state.isLoading = false ;
+ state.isError= true ;
+ state.message = action.payload ;
+ state.isLoggedIn= true ;
+
+})
+
+//get all users
+
+.addCase(getAllUsers.pending, (state)=>{
+  state.isLoading = true ;
+})
+
+.addCase(getAllUsers.fulfilled, (state,action)=>{
+  state.isLoading = false ;
+  state.isSuccess= true ;
+  state.isLoggedIn= true ;
+  state.users= action.payload;
+  state.totalusers = action.payload?.length;
+})
+
+.addCase(getAllUsers.rejected, (state,action)=>{
+ state.isLoading = false ;
+ state.isError= true ;
+ state.message = action.payload ;
+ state.isLoggedIn= true ;
+
+})
 
   },
 });

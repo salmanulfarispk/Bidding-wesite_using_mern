@@ -12,8 +12,8 @@ router.post("/sellerlogin", loginAsSeller);
 router.get('/getUser',protect,getUser)
 router.get('/sell-amount',protect,getUserBalance)
 
- 
-//admin
+
+//only admin can access 
 
 router.get('/allUsers',protect,isAdmin,getAllUsers)
 router.get('/estimate-Income',protect,isAdmin,estimateIncome)

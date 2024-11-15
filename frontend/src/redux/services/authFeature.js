@@ -47,6 +47,17 @@ const getUserBalance= async()=>{
 };
 
 
+//only admin can access 
+
+const getIncome= async()=>{
+    const response=await axios.get(Auth_URL+'estimate-Income')
+    return response.data;
+};
+
+const getAllUsers= async()=>{
+    const response=await axios.get(Auth_URL+'allUsers')
+    return response.data;
+};
 
 
 
@@ -57,7 +68,9 @@ const authService ={
     getLogInStatus,
     getUserProfile,
     loginUserAsSeller,
-    getUserBalance
+    getUserBalance,
+    getIncome,
+    getAllUsers
 }
 
 export default authService

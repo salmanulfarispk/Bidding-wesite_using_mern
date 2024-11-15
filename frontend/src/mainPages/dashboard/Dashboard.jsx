@@ -32,62 +32,73 @@ export const Dashboard = () => {
   
   return (
     <>
-      <section className="">
-        <div className="shadow-s1 p-8 rounded-lg  mb-12">
-          <Title level={5} className=" font-normal">
-            My Activity
-          </Title>
-          <hr className="my-5" />
-          
-          { role == 'buyer' && (
-          <h1 className="text-xl text-center font-semibold text-green">Please Become a seller</h1>
-          )}
-            
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-h-screen overflow-y-auto no-scrollbar">
-            <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
-              <BsCashCoin size={80} className="text-green" />
-              <div>
-                <Title level={1}>{income?.balance} </Title>
-                <Title>Balance</Title>
+    <section>
+      <div className="shadow-s1 p-8 rounded-lg mb-12">
+        <Title level={5} className="font-normal">
+          My Activity
+        </Title>
+        <hr className="my-5" />
+  
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-h-screen overflow-y-auto no-scrollbar">
+          {(role === 'admin' || role === 'seller') ? (
+            <>
+              <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
+                <BsCashCoin size={80} className="text-green" />
+                <div>
+                  <Title level={1}>{income?.balance ?? 0}</Title>
+                  <Title>Balance</Title>
+                </div>
               </div>
-            </div>
-            <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
-              <CiMedal size={80} className="text-green" />
-              <div>
-                <Title level={1}>2</Title>
-                <Title>Items Won</Title>
+  
+              <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
+                <CiMedal size={80} className="text-green" />
+                <div>
+                  <Title level={1}>2</Title>
+                  <Title>Items Won</Title>
+                </div>
               </div>
-            </div>
-            <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
-              <GiBarbedStar size={80} className="text-green" />
-              <div>
-                <Title level={1}>100</Title>
-                <Title>Your Products </Title>
+  
+              <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
+                <GiBarbedStar size={80} className="text-green" />
+                <div>
+                  <Title level={1}>100</Title>
+                  <Title>Your Products</Title>
+                </div>
               </div>
-            </div>
+  
+              {role === 'admin' && (
+                <>
+                  <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
+                    <MdOutlineCategory size={80} className="text-green" />
+                    <div>
+                      <Title level={1}>50</Title>
+                      <Title>All Products</Title>
+                    </div>
+                  </div>
+  
+                  <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
+                    <HiOutlineUsers size={80} className="text-green" />
+                    <div>
+                      <Title level={1}>100</Title>
+                      <Title>All Users</Title>
+                    </div>
+                  </div>
+                </>
+              )}
+            </> 
+          ) : (
+            <>
+              <h1 className="text-xl font-semibold text-green text-center">
+                Please Become a Seller
+              </h1>
+             </>
 
-            {role === "admin" &&(
-              <>
-                <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
-                  <MdOutlineCategory size={80} className="text-green" />
-                  <div>
-                    <Title level={1}>50</Title>
-                    <Title>All Products </Title>
-                  </div>
-                </div>
-                <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
-                  <HiOutlineUsers size={80} className="text-green" />
-                  <div>
-                    <Title level={1}>100</Title>
-                    <Title>All Users </Title>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
+          )}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
+  </>
+  
   );
 };
 

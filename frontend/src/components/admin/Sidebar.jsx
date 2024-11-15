@@ -1,10 +1,10 @@
-import { Caption, CustomNavLink } from "../components/common/Design";
+import { Caption, CustomNavLink } from "../../components/common/Design";
 import { CiGrid41 } from "react-icons/ci";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineCategory } from "react-icons/md";
 import { RiAuctionLine } from "react-icons/ri";
 import { IoIosHeartEmpty } from "react-icons/io";
-import { User1 } from "../components/hero/Hero";
+import { User1 } from "../hero/Hero";
 import { IoIosLogOut } from "react-icons/io";
 import { CgProductHunt } from "react-icons/cg";
 import { TbCurrencyDollar } from "react-icons/tb";
@@ -12,9 +12,9 @@ import { FiUser } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getuserProfile, logOut, RESET } from "../redux/features/authslice";
+import { getuserProfile, logOut, RESET } from "../../redux/features/authslice";
 import { useEffect } from "react";
-import { useUserProfile } from "../hooks/useUserProfile";
+import { useUserProfile } from "../../hooks/useUserProfile";
 
 
 
