@@ -33,6 +33,13 @@ const getUserProfile= async()=>{
 };
 
 
+const loginUserAsSeller= async(userData)=>{
+    const response=await axios.post(Auth_URL+'sellerlogin',userData,{
+        withCredentials:true
+    })
+    return response.data;
+};
+
 
 
 const authService ={
@@ -40,7 +47,8 @@ const authService ={
     login,
     logout,
     getLogInStatus,
-    getUserProfile
+    getUserProfile,
+    loginUserAsSeller
 }
 
 export default authService

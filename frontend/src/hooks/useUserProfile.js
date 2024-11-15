@@ -8,12 +8,16 @@ export const useUserProfile =()=>{
     const dispatch=useDispatch()
     const isLoggedIn= useSelector(selectIsLoggedIn)
     const {user, isLoading }=useSelector((state)=> state.auth)
-    const [role,setRole]=useState(()=> user.role || JSON.parse(localStorage.getItem('user')))
+    const [role, setRole] = useState(() => {
+        const User = JSON.parse(localStorage.getItem('user'));
+        return user?.role || User?.role || null;
+      });
+      
 
 
     useEffect(()=>{
       
-        if(isLoading && !user){
+        if(isLoading && user){
             dispatch(getuserProfile())
         }else if(user) {
           setRole(user.role)
@@ -29,5 +33,5 @@ export const useUserProfile =()=>{
     },[user])
 
 
-    return {role,isLoading,isLoggedIn}
+    return {isLoggedIn,role,isLoading,}
 }

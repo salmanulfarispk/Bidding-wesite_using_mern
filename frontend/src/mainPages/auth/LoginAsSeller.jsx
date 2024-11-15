@@ -1,11 +1,63 @@
 import { FaFacebook, FaGoogle } from "react-icons/fa";
-import { Caption, Container, CustomNavLink, PrimaryButton, Title } from "../../router/index";
+import { Caption, Container, CustomNavLink, PrimaryButton, Title,Loader } from "../../router/index";
 import { commonClassNameOfInput } from "../../components/common/Design";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { loginAsSeller } from "../../redux/features/authslice";
 
+
+
+
+
+const initialState={
+  email:'',
+  password:'',
+}
 
 export const LoginAsSeller = () => {
+
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const [formData,setFormData]=useState(initialState)
+
+  const {email,password}=formData ;
+  const {isLoading,isSuccess}=useSelector((state)=> state.auth)
+
+
+  const handleInputChange=(e)=>{
+    const {name,value}=e.target;
+      setFormData({
+       ...formData,
+        [name]: value
+      })
+  };
+
+  const handleLoginAsSeller=(e)=>{
+    e.preventDefault();
+
+    if(!email || !password){
+       return toast.error('All fields are required!')
+    }
+    const userData={email,password}
+
+    dispatch(loginAsSeller(userData))
+
+    if(isSuccess){
+      setFormData({
+        email:'',
+        password:'',
+      })
+
+      navigate('/dashboard')
+    }
+
+  };
+
+
   return (
     <>
+      {isLoading && <Loader />}
       <section className="regsiter pt-16 relative">
         <div className="hidden md:block bg-green w-96 h-96 rounded-full opacity-20 blur-3xl absolute top-2/3"></div>
         <div className="bg-[#241C37] pt-8 h-[40vh] relative content">
@@ -28,7 +80,7 @@ export const LoginAsSeller = () => {
             </div>
           </Container>
         </div>
-        <form className="bg-white shadow-s3  w-full md:w-1/3 m-auto my-16 p-8 rounded-xl">
+        <form onSubmit={handleLoginAsSeller} className="bg-white shadow-s3  w-full md:w-1/3 m-auto my-16 p-8 rounded-xl">
           <div className="text-center">
             <Title level={5}>New Seller Member</Title>
             <p className="mt-2 text-lg">
@@ -38,11 +90,11 @@ export const LoginAsSeller = () => {
 
           <div className="py-5 mt-8">
             <Caption className="mb-2">Enter Your Email *</Caption>
-            <input type="email" name="email" className={commonClassNameOfInput} placeholder="Enter Your Email" />
+            <input type="email" name="email" value={email} className={commonClassNameOfInput} onChange={handleInputChange} placeholder="Enter Your Email" />
           </div>
           <div>
             <Caption className="mb-2">Password *</Caption>
-            <input type="password" name="password" className={commonClassNameOfInput} placeholder="Enter Your Password" />
+            <input type="password" name="password"  value={password} className={commonClassNameOfInput} onChange={handleInputChange} placeholder="Enter Your Password" />
           </div>
           <div className="flex items-center gap-2 py-4">
             <input type="checkbox" />

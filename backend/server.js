@@ -29,8 +29,8 @@ app.use(
     origin: ["http://localhost:3003"],
     credentials: true,
   })
-);
-
+);  
+ 
 const PORT = process.env.PORT || 5000;
 
 app.use(errorHandler)

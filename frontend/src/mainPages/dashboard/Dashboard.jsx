@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Title } from "../../router/index";
 import { CiMedal } from "react-icons/ci";
 import { GiBarbedStar } from "react-icons/gi";
@@ -7,15 +7,25 @@ import { MdDashboard, MdOutlineCategory } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { UseRedirectLogoutUser } from "../../hooks/useRedirectLogoutUser";
+import { useUserProfile } from "../../hooks/useUserProfile";
+import { useDispatch } from "react-redux";
+import { getuserProfile } from "../../redux/features/authslice";
 
 
 
 export const Dashboard = () => {
 
-  //if not logedin ,then its redoirect to login page ,if logedin and to  dashboard 
+  //if not logedin ,then its redirect to login page ,if logedin and to  dashboard 
   UseRedirectLogoutUser('/login')
 
-  const role = "admin";
+  const { role }=useUserProfile()
+
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+     dispatch(getuserProfile())
+  },[dispatch,])
+
   
   return (
     <>
@@ -25,7 +35,11 @@ export const Dashboard = () => {
             My Activity
           </Title>
           <hr className="my-5" />
-
+          
+          { role == 'buyer' && (
+          <h1 className="text-xl text-center font-semibold text-green">Please Become a seller</h1>
+          )}
+            
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-h-screen overflow-y-auto no-scrollbar">
             <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
               <BsCashCoin size={80} className="text-green" />
@@ -48,7 +62,8 @@ export const Dashboard = () => {
                 <Title>Your Products </Title>
               </div>
             </div>
-            {role === "admin" && (
+
+            {role === "admin" &&(
               <>
                 <div className="shadow-s3 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
                   <MdOutlineCategory size={80} className="text-green" />

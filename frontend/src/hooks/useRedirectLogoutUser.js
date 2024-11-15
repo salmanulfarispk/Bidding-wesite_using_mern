@@ -14,7 +14,7 @@ export const UseRedirectLogoutUser = (path) => {
         const redirectloggedOutUser = async()=>{
             try {
                 isLoggedIn= await authService.getLogInStatus()
-
+                
             } catch (error) {
                 console.log(error.message);   
             }

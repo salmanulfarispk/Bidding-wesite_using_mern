@@ -119,6 +119,7 @@ const logoutUser = asynchandler(async (req, res) => {
     return res.status(200).json({ message: "Successfully Logged Out" });
   });
 
+  
 
 const loginAsSeller= asynchandler(async(req,res)=>{
 

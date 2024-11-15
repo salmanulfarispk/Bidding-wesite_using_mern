@@ -7,6 +7,9 @@ import { useLocation } from 'react-router-dom'
 import {User1} from "../hero/Hero"
 import { NavLink } from 'react-router-dom'
 import { ShowOnLogin, ShowOnLogout } from '../../utils/HiddenLinks';
+import { useUserProfile } from '../../hooks/useUserProfile';
+import { useDispatch, useSelector } from 'react-redux';
+import { getuserProfile, selectIsLoggedIn } from '../../redux/features/authslice';
 
 
 
@@ -14,7 +17,9 @@ export const Header = () => {
 
   const [isOpen,setIsOpen]=useState(false)
   const [isScrolled,setIsScrolled]=useState(false)
+  const dispatch=useDispatch()
 
+ const isLoggedIn=useSelector(selectIsLoggedIn)
 
   const location=useLocation()
 
@@ -47,8 +52,13 @@ export const Header = () => {
 
  const isHomePage=location.pathname === '/' ;
 
- const role = "buyer";
+ const { role } = useUserProfile()
 
+ useEffect(()=>{
+  if(isLoggedIn){
+    dispatch(getuserProfile())
+  }
+ },[dispatch,isLoggedIn])
 
 
   return (
@@ -82,13 +92,14 @@ export const Header = () => {
           <div className='hidden lg:flex lg:items-center lg:gap-8 text-white'>
           <IoSearchOutline size={23} className={`${isScrolled || !isHomePage ? 'text-black' : 'text-white'}`}/>
 
-          {role === "buyer" && (
+        {isLoggedIn && role === "buyer" && (
             <ShowOnLogin>
-          <CustomNavLinkList href='/seller/login' className={`${isScrolled || !isHomePage ? 'text-black' : 'text-white'}`}>
+           <CustomNavLinkList href='/seller/login' className={`${isScrolled || !isHomePage ? 'text-black' : 'text-white'}`}>
               Become a seller
           </CustomNavLinkList>
           </ShowOnLogin>
-          )}
+        )}
+          
           
           <ShowOnLogout>
           <CustomNavLinkList href='/login' className={`${isScrolled || !isHomePage ? 'text-black' : 'text-white'}`}>
@@ -98,15 +109,19 @@ export const Header = () => {
              Join
           </CustomNavLinkList>
           </ShowOnLogout>
-
+          
+            
+              <ShowOnLogin>
+              <CustomNavLink href="/dashboard" >
+                <ProfileCard>
+                  <img src={User1} alt="" className="w-full h-full object-cover" />
+                </ProfileCard>
+              </CustomNavLink>
+              </ShowOnLogin>
            
-             <ShowOnLogin>
-            <CustomNavLink href="/dashboard">
-                  <ProfileCard>
-                    <img src={User1} alt="" className="w-full h-full object-cover" />
-                  </ProfileCard>
-                </CustomNavLink>
-                </ShowOnLogin>
+             
+          
+             
           </div>
 
            <div className={`icon flex items-center justify-center gap-6 ${isScrolled || !isHomePage ? "text-primary" : "text-white"}`}>

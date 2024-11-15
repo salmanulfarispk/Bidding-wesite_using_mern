@@ -41,12 +41,17 @@ const initialState = {
  });
 
 
- export const logOut= createAsyncThunk('auth/logOut',async(thunkAPI) => {
+ export const logOut= createAsyncThunk('auth/logOut',async(_,thunkAPI) => {
   try {
    
     await authService.logout();
     localStorage.removeItem('user')
-   
+    
+
+    setTimeout(()=>{
+    window.location.reload();
+    },1000)
+
   } catch (error) {
      const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
       return thunkAPI.rejectWithValue(errorMessage)
@@ -54,7 +59,7 @@ const initialState = {
 });
 
 
-export const getLogInstatus= createAsyncThunk('auth/status',async(thunkAPI) => {
+export const getLogInstatus= createAsyncThunk('auth/status',async(_,thunkAPI) => {
   try {
      
     return await authService.getLogInStatus();
@@ -65,7 +70,8 @@ export const getLogInstatus= createAsyncThunk('auth/status',async(thunkAPI) => {
    }
 });
 
-export const getuserProfile= createAsyncThunk('auth/userprofile',async(thunkAPI) => {
+
+export const getuserProfile= createAsyncThunk('auth/userprofile',async(_,thunkAPI) => {
   try {
      
     return await authService.getUserProfile();
@@ -74,6 +80,20 @@ export const getuserProfile= createAsyncThunk('auth/userprofile',async(thunkAPI)
       const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
        return thunkAPI.rejectWithValue(errorMessage)
    }
+});
+
+
+export const loginAsSeller= createAsyncThunk('auth/loginAsSeller',async(userData, thunkAPI) => {
+  try {
+   
+   const response= await authService.loginUserAsSeller(userData);
+   localStorage.setItem('user',JSON.stringify(response))
+   return response;
+
+  } catch (error) {
+     const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+      return thunkAPI.rejectWithValue(errorMessage)
+  }
 });
 
 
@@ -141,8 +161,8 @@ const authslice = createSlice({
   .addCase(logOut.fulfilled, (state,action)=>{
     state.isLoading = false ;
     state.isSuccess= true ;
-    state.isLoggedIn=  false ;
     state.user = null ;
+    state.isLoggedIn= false;
     toast.success(action.payload)
   })
 
@@ -195,6 +215,31 @@ const authslice = createSlice({
  state.isLoggedIn= true ;
 
 })
+
+
+//loginAsSeller
+
+.addCase(loginAsSeller.pending, (state)=>{
+  state.isLoading = true ;
+})
+
+.addCase(loginAsSeller.fulfilled, (state,action)=>{
+  state.isLoading = false ;
+  state.isSuccess= true ;
+  state.user = action.payload ;
+  state.isError= false ;
+  toast.success('you become a seller');
+})
+
+.addCase(loginAsSeller.rejected, (state,action)=>{
+ state.isLoading = false ;
+ state.isError= true ;
+ state.message = action.payload ;
+ state.user = null ;
+ toast.error(action.payload);
+
+})
+
 
 
   },

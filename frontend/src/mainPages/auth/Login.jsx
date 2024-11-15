@@ -24,7 +24,6 @@ export const Login = () => {
 
   const {isLoggedIn,isError}=useSelector((state)=> state.auth)
 
-   console.log(isLoggedIn);
    
 
   const handleInputChange=(e)=>{
@@ -38,7 +37,6 @@ export const Login = () => {
   const handleLogin=(e)=>{
     e.preventDefault();
 
-
     if(!email || !password){
        return toast.error('All fields are required!')
     }
@@ -47,7 +45,7 @@ export const Login = () => {
 
     dispatch(login(userData))
 
-  }
+  };
 
 
   useEffect(()=>{

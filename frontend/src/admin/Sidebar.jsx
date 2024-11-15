@@ -13,7 +13,6 @@ import { FaPlusCircle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getuserProfile, logOut, RESET } from "../redux/features/authslice";
-import { UseRedirectLogoutUser } from "../hooks/useRedirectLogoutUser";
 import { useEffect } from "react";
 import { useUserProfile } from "../hooks/useUserProfile";
 
@@ -22,26 +21,28 @@ import { useUserProfile } from "../hooks/useUserProfile";
 export const Sidebar = () => {
 
 
-  UseRedirectLogoutUser('/login')
-
   const location = useLocation();
   const dispatch= useDispatch()
   const navigate=useNavigate()
   const {user}=useSelector(state => state.auth)
-  const {role,isLoading,isLoggedIn}=useUserProfile()
+  const {role,isLoggedIn}=useUserProfile()
 
 
-  useEffect(()=>{
-    dispatch(getuserProfile())
-  },[dispatch])
-  
-  
 
   const LogoutUser= async()=>{
     dispatch(RESET())
      await dispatch(logOut())
      navigate('/')
   }
+
+  
+  useEffect(()=>{
+    if(isLoggedIn){
+    dispatch(getuserProfile())
+    }
+  },[dispatch,isLoggedIn])
+  
+  if(!isLoggedIn) return <p>you need to log to access this page</p>
 
   const className = "flex items-center md:gap-3 mb-2 p-4 rounded-full";
     
@@ -50,10 +51,10 @@ export const Sidebar = () => {
     <>
       <section className="sidebar flex flex-col justify-between h-full">
         <div className="profile flex items-center text-center justify-center gap-8 flex-col mb-8">
-          <img src={user.photo || User1} alt="" className="w-20 h-12 md:w-32 md:h-32 rounded-full object-cover" />
+          <img src={user?.photo || User1} alt="" className="w-20 h-12 md:w-32 md:h-32 rounded-full object-cover" />
           <div>
-            <h1 className="capitalize  text-sm md:text-[18px] md:font-[500]">{user.name}</h1>
-            <p className="text-[7px] font-bold tracking-wide md:text-[15px] md:font-[500] text-gray_100">{user.email}</p>
+            <h1 className="capitalize  text-sm md:text-[18px] md:font-[500]">{user?.name}</h1>
+            <p className="text-[7px] font-bold tracking-wide md:text-[15px] md:font-[500] text-gray_100">{user?.email}</p>
           </div>
         </div>
 
@@ -73,7 +74,7 @@ export const Sidebar = () => {
                 </span>
                 <span className="hidden md:block">My Products</span>
               </CustomNavLink>
-              <CustomNavLink href="/add" isActive={location.pathname === "/add"} className={className}>
+              <CustomNavLink href="/add-product" isActive={location.pathname === "/add"} className={className}>
                 <span>
                   <FaPlusCircle size={22} />
                 </span>

@@ -1,12 +1,15 @@
 import { BrowserRouter,Routes,Route} from "react-router-dom"
 import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,ScrollToTop,Dashboard,
    DashboardLayout,
-   UserProfile
+   UserProfile,
+   WinningBidList,
+   NotFound,
+   AddProduct
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch,} from "react-redux";
 import { useEffect } from "react";
 import { getLogInstatus } from "./redux/features/authslice.js";
 
@@ -18,7 +21,7 @@ axios.defaults.withCredentials = true
 const App = () => {
 
   const dispatch= useDispatch()
-  const { isLoggedIn }=useSelector(state => state.auth)
+
  
     useEffect(()=>{
      
@@ -101,6 +104,41 @@ const App = () => {
               </PrivateRoute>
             }
             />
+
+           <Route
+            path="/winning-products"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <WinningBidList />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+              }
+            />
+
+            <Route
+            path="/*"
+            element={
+              <Layout>
+                <NotFound />
+              </Layout>
+            }
+          />
+
+            <Route
+             path="/add-product"
+             element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <AddProduct />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
 
 
 

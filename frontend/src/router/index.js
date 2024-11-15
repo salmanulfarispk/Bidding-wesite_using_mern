@@ -20,3 +20,6 @@ export { Loader } from '../components/common/Loader'
 export { Dashboard } from '../mainPages/dashboard/Dashboard'
 export { DashboardLayout } from '../components/common/layout/dashboardLayout'
 export { UserProfile } from "../mainPages/auth/UserProfile"
+export { WinningBidList } from '../mainPages/product/WinningBidList'
+export { NotFound} from '../components/common/NotFound'
+export { AddProduct } from '../mainPages/product/AddProduct'
