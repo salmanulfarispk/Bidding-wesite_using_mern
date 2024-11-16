@@ -62,6 +62,7 @@ const createProduct = asyncHandler(async(req,res)=>{
           public_id: uploadedFile.public_id,
         };
       };
+    
 
       const product = await Product.create({
         user: userId,

@@ -1,6 +1,6 @@
 import { CategoryDropDown, Caption, PrimaryButton, Title } from "../../router/index";
 import { commonClassNameOfInput } from "../../components/common/Design";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UseRedirectLogoutUser } from "../../hooks/useRedirectLogoutUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ const initialState = {
   lengthpic: "",
   width: "",
   mediumused: "",
-  weigth: "",
+  weight: "",
   category: null,
 };
 
@@ -24,26 +24,25 @@ export const AddProduct = () => {
 
    const dispatch=useDispatch()
    const navigate=useNavigate()
-   const[product,setProduct]=useState(initialState)
-   const [productImage, setSelectedImage] = useState('');
-   const [imgpreview,setImageprev] = useState(null);
-   const [imgname,setImgname]=useState('')
    
-  
-   const {title,description,price,height,lengthpic,width,mediumused,weigth,category}=product ;
-   const { isSuccess }=useSelector(state => state.product)
+   const { isSuccess } = useSelector((state) => state.product);
+   const[product,setProduct]=useState(initialState)
+   const [productImage, setProductImage] = useState('');
+   const [imgpreview,setImageprev] = useState(null);
+   
+
+   const {title,description,price,height,lengthpic,width,mediumused,weight,category}=product ; 
     
-    const handleFileChange = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        setSelectedImage(file); 
-        setImgname(file.name)
-        setImageprev(URL.createObjectURL(file)); 
-      }
+   const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProductImage(file);
+      setImageprev(URL.createObjectURL(file)); 
     }
+  };
 
     const handleInput =(e)=>{
-      const [name,value]= e.target;
+      const {name,value}= e.target;
       setProduct({
         ...product,
         [name]: value
@@ -63,18 +62,24 @@ export const AddProduct = () => {
         formData.append('height',height)
         formData.append('width',width)
         formData.append('mediumused',mediumused)
-        formData.append('weight',weigth)
-        formData.append('productImage',productImage)
+        formData.append('weight,',weight)
+
+        if (productImage) {
+          formData.append('image', productImage);
+        }
          if(category){
           formData.append('category',category.label)
          }
 
       await dispatch(createProduct(formData))
-      if(isSuccess){
-         navigate('/product')
-      }
 
     };
+
+    useEffect(() => {
+      if (isSuccess) {
+        navigate('/product');
+      }
+    }, [isSuccess, navigate]);
 
 
   
@@ -94,6 +99,9 @@ export const AddProduct = () => {
             <Caption className="mb-2">Category *</Caption>
             <CategoryDropDown value={category} onChange={(selectedcategory)=> setProduct({...product,category:selectedcategory})} className={`${commonClassNameOfInput}`} />
           </div>
+
+          {category && (
+            <>
           <div className="flex items-center gap-5 my-4">
             <div className="w-1/2">
               <Caption className="mb-2">Height (cm) </Caption>
@@ -116,6 +124,7 @@ export const AddProduct = () => {
               <input type="text" name="mediumused" value={product?.mediumused} onChange={handleInput} placeholder="Medium used" className={commonClassNameOfInput} />
             </div>
           </div>
+        
           <div className="flex items-center gap-5 mt-4">
             <div className="w-1/2">
               <Caption className="mb-2">
@@ -128,22 +137,26 @@ export const AddProduct = () => {
               <input type="number" name="price" value={product?.price} onChange={handleInput} className={`${commonClassNameOfInput}`} placeholder="Price" required />
             </div>
           </div>
+
+          </>
+          )}
+
           <div>
             <Caption className="mb-2">Description *</Caption>
             <textarea name="description" value={product?.description} onChange={handleInput} className={`${commonClassNameOfInput}`} cols="30" rows="5"></textarea>
           </div>
           <div>
             <Caption className="mb-2">Image </Caption>
-            <input type="file" className={`${commonClassNameOfInput} hidden`}  name="image" id="image-input" onChange={handleFileChange} />
-            <div className="flex space-x-3">
-            <label htmlFor="image-input" className="py-3 px-10 cursor-pointer rounded-lg bg-gray-300 text-white flex items-center justify-center">
-               {imgname || 'Select'}
+            <input type="file" className={`${commonClassNameOfInput} hidden`}  name="image" id="image-input" onChange={handleImageChange} />
+            <label htmlFor="image-input" className=" w-full py-3 px-10 cursor-pointer rounded-lg bg-gray-300 text-white flex items-center justify-center">
+               {productImage.name || 'Select image'}
             </label>
-            <div className="w-full h-20">
-              {imgpreview && (
-               <img src={imgpreview} alt="Preview" className="w-full h-full object-cover" />
+            <div className="mt-3">
+              {imgpreview !== null ? (
+               <img src={imgpreview} alt="Preview" className="border w-48 h-48 rounded-lg object-cover" />
+               ): (
+                <p className="mt-2 ms-2 text-red-600">No Image set for this product</p>
                )}
-            </div>
             </div>
           </div>
           <PrimaryButton type="submit" className="rounded-none my-5">

@@ -9,7 +9,8 @@ import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,S
    UserList,
    CreateCategory,
    Catgeorylist,
-   UpdateCategory
+   UpdateCategory,
+   Productlist
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -210,6 +211,21 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          
+          <Route
+            path="/product"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <Productlist />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+
+        
 
    </Routes>
    </BrowserRouter>

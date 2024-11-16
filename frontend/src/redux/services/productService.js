@@ -8,8 +8,9 @@ export const PRODUCT_URL= `${backendUrl}/product/`
 
 
 const createProduct= async(formData)=>{
-    const response=await axios.post(CATEGORY_URL , formData)
-    return response.data.data;
+    
+    const response=await axios.post(PRODUCT_URL , formData) 
+    return response.data;
 };
 
 
