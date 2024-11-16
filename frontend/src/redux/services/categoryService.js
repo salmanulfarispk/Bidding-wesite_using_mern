@@ -17,6 +17,16 @@ const getAllcategory= async()=>{
     return response.data;
 };
 
+const EditCategory= async(id, formData)=>{
+    const response=await axios.put(`${CATEGORY_URL}/${id}`,formData)
+    return response.data;
+};
+
+const deleteCategory= async(id)=>{
+    const response=await axios.delete(`${CATEGORY_URL}/${id}`)
+    return response.data;
+};
+
 
 
 
@@ -24,6 +34,8 @@ const getAllcategory= async()=>{
 const categoryService ={
    createCategory,
    getAllcategory,
+   deleteCategory,
+   EditCategory
 }
 
 export default categoryService;

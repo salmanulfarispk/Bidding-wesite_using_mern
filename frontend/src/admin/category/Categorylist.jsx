@@ -8,7 +8,8 @@ import { User2 } from "../../components/hero/Hero";
 import { useDispatch, useSelector } from "react-redux";
 import { UseRedirectLogoutUser } from "../../hooks/useRedirectLogoutUser";
 import { useEffect } from "react";
-import { getallCategory } from "../../redux/features/categorySlice";
+import { DeleteCategory, getallCategory } from "../../redux/features/categorySlice";
+import { toast } from "react-toastify";
 
 export const Catgeorylist = () => {
 
@@ -24,6 +25,16 @@ export const Catgeorylist = () => {
   },[dispatch])
   
 
+  const handleDelete =async(categoryId)=>{
+      try {
+
+        await dispatch(DeleteCategory(categoryId))
+        await dispatch(getallCategory())
+        
+      } catch (error) {
+        toast.error('Failed to delete category!')
+      }
+  }
 
   return (
     <>
@@ -40,8 +51,8 @@ export const Catgeorylist = () => {
           </NavLink>
         </div>
         <hr className="my-5" />
-        <div className="relative overflow-x-auto rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+        <div className="relative overflow-x-auto rounded-lg max-h-[840px] no-scrollbar">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 overflow-y-auto">
             <thead className="text-xs text-gray-700 uppercase bg-gray-100">
               <tr>
                 <th scope="col" className="px-6 py-5">
@@ -62,7 +73,7 @@ export const Catgeorylist = () => {
               </tr>
             </thead>
             <tbody>
-              {categorys?.map((category,index)=> (
+              {categorys.map((category,index)=> (
 
               <tr className="bg-white border-b hover:bg-gray-50" key={index}>
                 <td className="px-6 py-4">{index + 1}</td>
@@ -79,7 +90,7 @@ export const Catgeorylist = () => {
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4">{category?.title}</td>
+                <td className="px-6 py-4 capitalize">{category?.title}</td>
                 <td className="px-6 py-4">
                   {category?.createdAt && <DateFormatter date={category?.createdAt} />}
                   </td>
@@ -91,7 +102,7 @@ export const Catgeorylist = () => {
                   <NavLink to={`/category/update/${category?._id}`} className="font-medium text-green">
                     <CiEdit size={25} />
                   </NavLink>
-                  <button className="font-medium text-red-500">
+                  <button className="font-medium text-red-500" onClick={()=> handleDelete(category?._id)}>
                     <MdOutlineDeleteOutline size={25} />
                   </button>
                 </td>
