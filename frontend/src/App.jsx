@@ -6,7 +6,10 @@ import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,S
    NotFound,
    AddProduct,
    Income,
-   UserList
+   UserList,
+   CreateCategory,
+   Catgeorylist,
+   UpdateCategory
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -162,6 +165,46 @@ const App = () => {
                 <Layout>
                   <DashboardLayout>
                     <UserList />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+           />
+
+           <Route
+            path="/category"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <Catgeorylist />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+           />
+
+            <Route
+            path="/category/update/:id"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <UpdateCategory />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+            />
+
+
+            <Route
+            path="/category/create"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <CreateCategory />
                   </DashboardLayout>
                 </Layout>
               </PrivateRoute>
