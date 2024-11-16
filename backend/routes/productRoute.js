@@ -6,6 +6,7 @@ const { upload } =require('../utils/fileUpload')
 
 
 
+
 router.post("/",protect,isSeller,upload.single('image'),createProduct);   //only can creates admin or seller
 router.delete("/:id", protect, isSeller, deleteProduct);
 router.put("/:id", protect, isSeller, upload.single("image"),updateProduct);
