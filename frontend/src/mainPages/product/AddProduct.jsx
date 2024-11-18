@@ -1,10 +1,12 @@
 import { CategoryDropDown, Caption, PrimaryButton, Title } from "../../router/index";
 import { commonClassNameOfInput } from "../../components/common/Design";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UseRedirectLogoutUser } from "../../hooks/useRedirectLogoutUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../redux/features/ProductSlice";
+
+
 
 const initialState = {
   title: "",
@@ -73,14 +75,13 @@ export const AddProduct = () => {
 
       await dispatch(createProduct(formData))
 
+       if (isSuccess) {
+        navigate('/product');
+       }
+
     };
 
-    useEffect(() => {
-      if (isSuccess) {
-        navigate('/product');
-      }
-    }, [isSuccess, navigate]);
-
+   
 
   
   return (

@@ -10,7 +10,8 @@ import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,S
    CreateCategory,
    Catgeorylist,
    UpdateCategory,
-   Productlist
+   Productlist,
+   ProductEdit
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -132,6 +133,20 @@ const App = () => {
               </Layout>
             }
           />
+            
+            <Route
+            path="/product"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <Productlist />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+
 
             <Route
              path="/add-product"
@@ -198,6 +213,19 @@ const App = () => {
             }
             />
 
+           <Route
+            path="/product/update/:id"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <ProductEdit />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+
 
             <Route
             path="/category/create"
@@ -212,18 +240,7 @@ const App = () => {
             }
           />
           
-          <Route
-            path="/product"
-            element={
-              <PrivateRoute>
-                <Layout>
-                  <DashboardLayout>
-                    <Productlist />
-                  </DashboardLayout>
-                </Layout>
-              </PrivateRoute>
-            }
-          />
+         
 
         
 

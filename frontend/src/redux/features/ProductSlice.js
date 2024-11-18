@@ -41,6 +41,64 @@ export const getAllUsersProduct = createAsyncThunk('product/getUsers-product', a
 });
 
 
+export const getAllProduct = createAsyncThunk('product/public/getAllProducts', async(_, thunkAPI)=>{
+  try {
+
+     return await productService.getAllProduct()
+    
+  } catch (error) {
+    const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+    return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
+
+
+export const getAllWonProductOfUser = createAsyncThunk('product/getwon-Products', async(_, thunkAPI)=>{
+  try {
+     return await productService.getAllWonProductofUser()
+
+  } catch (error) {
+    const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+    return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
+
+
+
+export const deleteProduct = createAsyncThunk('product/delete-Products', async(id, thunkAPI)=>{
+  try {
+     return await productService.deleteProduct(id)
+
+  } catch (error) {
+    const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+    return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
+
+
+export const updateProduct = createAsyncThunk('product/update-Products', async({id,formData}, thunkAPI)=>{
+  try {
+     return await productService.updateProduct(id,formData)
+
+  } catch (error) {
+    const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+    return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
+
+
+
+export const getProduct = createAsyncThunk('product/public/getProduct', async(id, thunkAPI)=>{
+  try {
+
+     return await productService.getProduct(id)
+    
+  } catch (error) {
+    const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+    return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
+
 
 
 const ProductSlice = createSlice({
@@ -87,9 +145,97 @@ const ProductSlice = createSlice({
    state.message = action.payload ;
  })
 
+
+    //getAllProducts
+
+    .addCase(getAllProduct.pending, (state)=>{
+      state.isLoading= true ;
+    })
+  
+   .addCase(getAllProduct.fulfilled, (state, action)=> {
+     state.isLoading= false ;
+     state.isSuccess= true ;
+     state.isError= false ;
+     state.products= action.payload ;
+   })
+  
+   .addCase(getAllProduct.rejected , (state, action)=>{
+     state.isLoading = false ;
+     state.isError = true ;
+     state.message = action.payload ;
+   })
+
+   //get won porduct of user
+
+   .addCase(getAllWonProductOfUser.pending, (state)=>{
+    state.isLoading= true ;
+  })
+
+ .addCase(getAllWonProductOfUser.fulfilled, (state, action)=> {
+   state.isLoading= false ;
+   state.isSuccess= true ;
+   state.isError= false ;
+   state.wonedproducts= action.payload ;
+ })
+
+ .addCase(getAllWonProductOfUser.rejected , (state, action)=>{
+   state.isLoading = false ;
+   state.isError = true ;
+   state.message = action.payload ;
+ })
+
+
+   //deleteProduct
+
+  .addCase(deleteProduct.pending, (state)=>{
+    state.isLoading= true ;
+  })
+
+ .addCase(deleteProduct.fulfilled, (state, action)=> {
+   state.isLoading= false ;
+   state.isSuccess= true ;
+   state.isError= false ;
+   toast.success('Product deleted succesfully!')
+ })
+
+ .addCase(deleteProduct.rejected , (state, action)=>{
+   state.isLoading = false ;
+   state.isError = true ;
+   state.message = action.payload ;
+   toast.error(action.payload)
+
+ })
+
+
+ //updateProduct
+   
+ .addCase(updateProduct.pending, (state)=>{
+  state.isLoading= true ;
+})
+
+.addCase(updateProduct.fulfilled, (state, action)=> {
+ state.isLoading= false ;
+ state.isSuccess= true ;
+ state.isError= false ;
+ toast.success('Product updated succesfully!')
+})
+
+.addCase(updateProduct.rejected , (state, action)=>{
+ state.isLoading = false ;
+ state.isError = true ;
+ state.message = action.payload ;
+ toast.error(action.payload)
+
+})
+
+
+//
+
   },
 });
 
 
+
+export const selectedProdu =(state)=> state.product.product;
 
 export default ProductSlice.reducer

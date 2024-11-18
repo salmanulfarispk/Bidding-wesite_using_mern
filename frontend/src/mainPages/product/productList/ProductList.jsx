@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { UseRedirectLogoutUser } from "../../../hooks/useRedirectLogoutUser";
-import { getAllUsersProduct } from "../../../redux/features/ProductSlice";
+import { deleteProduct, getAllUsersProduct } from "../../../redux/features/ProductSlice";
 
 export const Productlist = () => {
 
@@ -18,6 +18,11 @@ export const Productlist = () => {
   },[dispatch])
 
 
+  const handleDeleteProduct = async(id)=>{
+     await dispatch(deleteProduct(id));
+     await dispatch(getAllUsersProduct())
+     
+  }
 
   return (
     <>
@@ -37,7 +42,7 @@ export const Productlist = () => {
         </div>
         <hr className="my-5" />
 
-        <Table products={userproducts}/>
+        <Table products={userproducts} delProduct={handleDeleteProduct}/>
       </section>
     </>
   );
