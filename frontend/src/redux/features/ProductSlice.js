@@ -29,6 +29,19 @@ export const createProduct = createAsyncThunk('product/create', async(formData, 
 });
 
 
+export const getAllUsersProduct = createAsyncThunk('product/getUsers-product', async(_, thunkAPI)=>{
+  try {
+
+     return await productService.getAllProductsOfUser()
+    
+  } catch (error) {
+    const errorMessage= (error.response && error.response.data && error.response.data.message) || error.message || error.toString() || error ;
+    return thunkAPI.rejectWithValue(errorMessage)
+  }
+});
+
+
+
 
 const ProductSlice = createSlice({
   name: 'product',
@@ -44,7 +57,7 @@ const ProductSlice = createSlice({
      state.isLoading= false ;
      state.isSuccess= true ;
      state.isError= false ;
-     state.products.push(action.payload)
+     state.products.push(action.payload) ;
      toast.success('product created succesfully!')
    })
 
@@ -55,7 +68,24 @@ const ProductSlice = createSlice({
      toast.error(action.payload)
    })
 
-   //
+   //getAllusersproduct
+
+   .addCase(getAllUsersProduct.pending, (state)=>{
+    state.isLoading= true ;
+  })
+
+ .addCase(getAllUsersProduct.fulfilled, (state, action)=> {
+   state.isLoading= false ;
+   state.isSuccess= true ;
+   state.isError= false ;
+   state.userproducts= action.payload ;
+ })
+
+ .addCase(getAllUsersProduct.rejected , (state, action)=>{
+   state.isLoading = false ;
+   state.isError = true ;
+   state.message = action.payload ;
+ })
 
   },
 });

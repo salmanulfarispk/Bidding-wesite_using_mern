@@ -10,10 +10,10 @@ const { upload } =require('../utils/fileUpload')
 router.post("/",protect,isSeller,upload.single('image'),createProduct);   //only can creates admin or seller
 router.delete("/:id", protect, isSeller, deleteProduct);
 router.put("/:id", protect, isSeller, upload.single("image"),updateProduct);
+router.get("/user", protect, getAllProductsofloginedUser);
 
 
 router.get('/',getAllproducts)
-router.get("/user", protect, getAllProductsofloginedUser);
 router.get("/:id", getProductBySlug);
 router.get("/sold", getAllSoldProducts);
 router.get("/won-products", protect, getWonProducts);
