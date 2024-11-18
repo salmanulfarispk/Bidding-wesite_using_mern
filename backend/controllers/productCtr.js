@@ -4,6 +4,7 @@ const slugify= require('slugify')
 const cloudinary = require("cloudinary").v2;
 const fs=require('fs')
 const BiddingProduct = require("../models/biddingProduct");
+const { default: mongoose } = require("mongoose");
 
 
 
@@ -326,9 +327,10 @@ const getAllSoldProducts = asyncHandler(async (req, res) => {
 
 const getWonProducts = asyncHandler(async(req,res)=>{
 
-  const userId = req.user._id;
-
+  const userId =req.user._id;  
+  
   const wonProducts = await Product.find({ soldTo: userId }).sort("-createdAt").populate("user");
+  
 
   const productsWithPrices = await Promise.all(
     wonProducts.map(async (product) => {

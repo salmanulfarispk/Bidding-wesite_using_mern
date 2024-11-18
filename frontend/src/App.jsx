@@ -11,7 +11,9 @@ import { Home,Layout,ProductDetails ,Register,Login,LoginAsSeller,PrivateRoute,S
    Catgeorylist,
    UpdateCategory,
    Productlist,
-   ProductEdit
+   ProductEdit,
+   AdminProductList,
+   UpdateProductByAdmin
  } from './router/index.js'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -240,8 +242,31 @@ const App = () => {
             }
           />
           
-         
+          <Route
+            path="/product/admin"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <AdminProductList />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
 
+           <Route
+            path="/product/admin/update/:id"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <DashboardLayout>
+                    <UpdateProductByAdmin />
+                  </DashboardLayout>
+                </Layout>
+              </PrivateRoute>
+            }
+          />
         
 
    </Routes>

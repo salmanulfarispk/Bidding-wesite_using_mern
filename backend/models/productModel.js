@@ -61,7 +61,10 @@ const productSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    soldTo: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    soldTo: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User" 
+    },
   },
   { timestamps: true }
 );

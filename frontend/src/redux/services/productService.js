@@ -29,10 +29,9 @@ const getAllProductsOfUser= async()=>{
     return response.data;
 };
 
-const getAllWonProductofUser= async()=>{
-    
-    const response=await axios.get(`${PRODUCT_URL}/won-products`) 
-    
+
+const getAllWonProductofUser= async()=>{ 
+    const response = await axios.post(`${PRODUCT_URL}/won-products`) 
     return response.data;
 };
 

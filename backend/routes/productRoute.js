@@ -15,8 +15,8 @@ router.get("/user", protect, getAllProductsofloginedUser);
 
 router.get('/',getAllproducts)
 router.get("/:id", getProductBySlug);
+router.post("/won-products", protect,getWonProducts);
 router.get("/sold", getAllSoldProducts);
-router.get("/won-products", protect, getWonProducts);
 
 
 

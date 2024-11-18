@@ -52,7 +52,7 @@ import { NavLink } from "react-router-dom";
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => (
+            {products?.map((product, index) => (
               <tr className="bg-white border-b hover:bg-gray-50" key={index}>
                 <td className="px-6 py-4">{index + 1}</td>
                 <td className="px-6 py-4">{product?.title?.slice(0, 15)}...</td>
