@@ -199,11 +199,13 @@ export const ProductDetails = () => {
                     </div>
                     <div className="flex justify-between py-3 border-b">
                       <Title>Sold out</Title>
-                      {product.isSoldout === false ? "No" : "Yes"}
+                      {product?.isSoldout ? <Caption>Sold out</Caption> : <Caption>On stock</Caption>}
+                      
                     </div>
+                  
                     <div className="flex justify-between py-3 border-b">
                       <Title>verify</Title>
-                       {product?.isverify ? "Yes" : 'No'}
+                       {product?.isverify ? <Caption> Yes</Caption> : <Caption>No</Caption>}
                     </div>
                     <div className="flex justify-between py-3 border-b">
                       <Title>Create At</Title>

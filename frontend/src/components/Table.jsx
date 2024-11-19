@@ -100,6 +100,7 @@ import { NavLink } from "react-router-dom";
                         <NavLink to={`/product/admin/update/${product._id}`} className="font-medium text-green">
                           <CiEdit size={25} />
                         </NavLink>
+                        
                       ) : (
                         <NavLink to={`/product/update/${product._id}`} className="font-medium text-green">
                           <CiEdit size={25} />
