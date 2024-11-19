@@ -56,7 +56,7 @@ export const Productlist = () => {
         </div>
         <hr className="my-5" />
 
-        <Table products={userproducts} delProduct={handleDeleteProduct}/>
+        <Table products={userproducts} delProduct={handleDeleteProduct} isAdmin={true} />
       </section>
     </>
   );

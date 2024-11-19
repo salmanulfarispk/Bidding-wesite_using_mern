@@ -1,5 +1,5 @@
 import { FaFacebook, FaGoogle } from "react-icons/fa";
-import { Caption, Container, CustomNavLink, PrimaryButton, Title,Loader } from "../../router/index";
+import { Caption, Container,PrimaryButton, Title,Loader } from "../../router/index";
 import { commonClassNameOfInput } from "../../components/common/Design";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -83,9 +83,6 @@ export const LoginAsSeller = () => {
         <form onSubmit={handleLoginAsSeller} className="bg-white shadow-s3  w-full md:w-1/3 m-auto my-16 p-8 rounded-xl">
           <div className="text-center">
             <Title level={5}>New Seller Member</Title>
-            <p className="mt-2 text-lg">
-              Do you already have an account? <CustomNavLink href="/create-account">Signup Here</CustomNavLink>
-            </p>
           </div>
 
           <div className="py-5 mt-8">

@@ -1,8 +1,13 @@
 import { Container, Heading } from "../../router/index";
-import { productlists } from "../../assets/data";
 import { ProductCard } from "../Cards/ProductCard";
 
-export const ProductList = () => {
+
+
+
+export const ProductList = ({products}) => {
+
+ 
+  
   return (
     <>
       <section className="product-home">
@@ -13,7 +18,7 @@ export const ProductList = () => {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 my-8">
-            {productlists?.slice(0, 12)?.map((item, index) => (
+            {products?.slice(0, 12)?.map((item, index) => (
               <ProductCard item={item} key={index + 1} />
             ))}
           </div>

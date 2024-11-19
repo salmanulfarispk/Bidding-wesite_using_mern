@@ -105,7 +105,7 @@ import { NavLink } from "react-router-dom";
                           <CiEdit size={25} />
                         </NavLink>
                       )}
-                      {!isAdmin && (
+                      {isAdmin && (
                         <button onClick={() => delProduct(product._id)} className="font-medium text-red-500">
                           <MdOutlineDeleteOutline size={25} />
                         </button>

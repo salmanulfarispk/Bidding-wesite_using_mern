@@ -1,10 +1,12 @@
-import { Body, Caption, Container, Title } from "../../router";
+import { Body, Caption, Container, DateFormatter, Title } from "../../router";
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
 import { commonClassNameOfInput } from "../../components/common/Design";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productlists } from "../../assets/data";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../../redux/features/ProductSlice";
+
 
 
 
@@ -12,7 +14,12 @@ export const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("description");
   const { id } = useParams();
 
-  const product = productlists.find((item) => item._id === id);
+  const dispatch=useDispatch()
+  const { product,isLoading}=useSelector((state)=> state.product)
+
+  useEffect(()=>{
+    dispatch(getProduct(id))
+  },[dispatch,id])
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -27,7 +34,7 @@ export const ProductDetails = () => {
           <div className="w-full md:w-1/2">
             <div className="h-[50vh] md:h-[70vh]">
               <img
-                src={product.image}
+                src={product?.image?.filePath}
                 alt=""
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -35,9 +42,9 @@ export const ProductDetails = () => {
           </div>
           <div className="w-full md:w-1/2">
             <Title level={2} className="capitalize">
-              {product.title}
+              {product?.title}
             </Title>
-            <div className="flex gap-5">
+            <div className="flex gap-5 mb-2">
               <div className="flex text-green ">
                 <IoIosStar size={20} />
                 <IoIosStar size={20} />
@@ -48,15 +55,13 @@ export const ProductDetails = () => {
               <Caption>(2 customer reviews)</Caption>
             </div>
             <Body>
-              Korem ipsum dolor amet, consectetur adipiscing elit. Maece nas in
-              pulvinar neque. Nulla finibus lobortis pulvinar. Donec a
-              consectetur nulla.
+              {product?.description.slice(0, 150)}
             </Body>
-            <Caption>Item condition: New</Caption>
-            <Caption>Item Verified: Yes</Caption>
+            <Caption className={`mt-3`}>Item condition: New</Caption>
+            <Caption>Item Verified: {product?.isverify ? "Yes" : 'No'}</Caption>
             <Caption>Time left:</Caption>
 
-            <div className="grid grid-cols-2 md:flex gap-8 mt-3 md:mt-0 text-center">
+            <div className="grid grid-cols-2 md:flex gap-8 mt-3 md:mt-4 text-center">
               <div className="p-5 px-10 shadow-s1">
                 <Title level={4}>149</Title>
                 <Caption>Days</Caption>
@@ -77,7 +82,7 @@ export const ProductDetails = () => {
 
             <Title className="flex items-center gap-2 mt-5">
               Auction ends:
-              <Caption>December 31, 2024 12:00 am</Caption>
+              <Caption>{ <DateFormatter date={product?.createdAt}/>}</Caption>
             </Title>
             <Title className="flex items-center gap-2 my-5">
               Timezone: <Caption>UTC 0</Caption>
@@ -87,7 +92,7 @@ export const ProductDetails = () => {
             </Title>
             <Title className="flex items-center gap-2">
               Current bid:{" "}
-              <Caption className="text-3xl">${product.biddingPrice}</Caption>
+              <Caption className="text-3xl">${product?.price}</Caption>
             </Title>
 
             <div className="p-5 px-5 md:px-10 shadow-s3 py-8">
@@ -159,40 +164,38 @@ export const ProductDetails = () => {
               <div className="description-tab shadow-s3 p-8 rounded-md">
                 <Title level={4}>Description</Title>
                 <Caption className="leading-7">
-                  If you’ve been following the crypto space, you’ve likely heard
-                  of Non-Fungible Tokens (Biddings), more popularly referred to
-                  as ‘Crypto Collectibles.’
+                  {product?.description}
                 </Caption>
                 <Title level={4}>Product Overview</Title>
                 <div className="flex flex-col md:flex-row gap-5">
                   <div className="mt-4 capitalize w-full md:w-1/2">
                     <div className="flex justify-between border-b py-3">
                       <Title>category</Title>
-                      <Caption>{product.category}</Caption>
+                      <Caption>{product?.category}</Caption>
                     </div>
                     <div className="flex justify-between border-b py-3">
                       <Title>height</Title>
-                      <Caption> 200 (cm)</Caption>
+                      <Caption> {product?.height} (cm)</Caption>
                     </div>
                     <div className="flex justify-between border-b py-3">
                       <Title>length</Title>
-                      <Caption> 300 (cm)</Caption>
+                      <Caption> {product?.lengthpic} (cm)</Caption>
                     </div>
                     <div className="flex justify-between border-b py-3">
                       <Title>width</Title>
-                      <Caption> 400 (cm)</Caption>
+                      <Caption> {product?.width} (cm)</Caption>
                     </div>
                     <div className="flex justify-between border-b py-3">
-                      <Title>weigth</Title>
-                      <Caption> 50 (kg)</Caption>
+                      <Title>weight</Title>
+                      <Caption> {product?.weight} (kg)</Caption>
                     </div>
                     <div className="flex justify-between py-3 border-b">
                       <Title>medium used</Title>
-                      <Caption> Gold </Caption>
+                      <Caption> {product?.mediumused} </Caption>
                     </div>
                     <div className="flex justify-between py-3 border-b">
                       <Title>Price</Title>
-                      <Caption> $50000 </Caption>
+                      <Caption> ${product?.price} </Caption>
                     </div>
                     <div className="flex justify-between py-3 border-b">
                       <Title>Sold out</Title>
@@ -200,22 +203,22 @@ export const ProductDetails = () => {
                     </div>
                     <div className="flex justify-between py-3 border-b">
                       <Title>verify</Title>
-                      No
+                       {product?.isverify ? "Yes" : 'No'}
                     </div>
                     <div className="flex justify-between py-3 border-b">
                       <Title>Create At</Title>
-                      <Caption>December 31, 2024 12:00 am</Caption>
+                      <Caption>{ <DateFormatter date={product?.createdAt} />}</Caption>
                     </div>
                     <div className="flex justify-between py-3">
                       <Title>Update At</Title>
-                      <Caption>December 31, 2024 12:00 am</Caption>
+                      <Caption>{ <DateFormatter date={product?.updatedAt} />}</Caption>
                     </div>
                   </div>
 
                   <div className="w-full md:w-1/2 hidden md:block">
                     <div className="h-[60vh] p-2 bg-green rounded-xl">
                       <img
-                        src={product.image}
+                        src={product?.image?.filePath}
                         alt=""
                         className="w-full h-full object-cover rounded-xl"
                       />
@@ -225,7 +228,7 @@ export const ProductDetails = () => {
               </div>
             )}
             {activeTab === "auctionHistory" && (
-              <AuctionHistory bitAmount={product.biddingPrice} />
+              <AuctionHistory bitAmount={product?.biddingPrice} />
             )}
             {activeTab === "reviews" && (
               <div className="reviews-tab shadow-s3 p-8 rounded-md">

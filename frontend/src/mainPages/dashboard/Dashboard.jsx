@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
   const { role }=useUserProfile()
   const { income ,users}=useSelector((state) => state.auth)
-  const {products,userproducts,wonedproducts,product}=useSelector((state) => state.product)
+  const {products,userproducts,wonedproducts}=useSelector((state) => state.product)
 
   const dispatch=useDispatch()
 
