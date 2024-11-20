@@ -6,20 +6,50 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../redux/features/ProductSlice";
+import { fetchBiddingHistory } from "../../redux/features/biddingSlice";
 
 
 
 
 export const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("description");
+  const [rate,setRate]=useState(0)
   const { id } = useParams();
 
   const dispatch=useDispatch()
-  const { product,isLoading}=useSelector((state)=> state.product)
+  const { product }=useSelector((state)=> state.product)
+  const { history }=useSelector((state)=> state.bidding)
+
+
 
   useEffect(()=>{
     dispatch(getProduct(id))
   },[dispatch,id])
+
+  useEffect(()=>{
+    if(product && !product.isSoldout){
+      dispatch(fetchBiddingHistory(id))
+    }
+  },[dispatch,id,product])
+
+
+  useEffect(()=>{
+    if(history && history.length > 0){
+      const highestBid = Math.max(...history.map((bid) => bid.price))
+      setRate(highestBid)
+    }else if(product){
+      setRate(product?.price)
+    }
+  },[])
+  
+
+  const BidSaveFill =()=>{
+    
+  }
+
+  const incrementBid =()=>{
+     setRate((prev) => prev + 1)
+  }
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -92,25 +122,30 @@ export const ProductDetails = () => {
             </Title>
             <Title className="flex items-center gap-2">
               Current bid:{" "}
-              <Caption className="text-3xl">${product?.price}</Caption>
+              <Caption className="text-3xl">${rate ? rate : product?.price}</Caption>
             </Title>
 
             <div className="p-5 px-5 md:px-10 shadow-s3 py-8">
-              <form className="flex w-full gap-3 justify-between">
+              <form className="flex w-full gap-3 justify-between" onSubmit={BidSaveFill}>
                 <input
                   className={commonClassNameOfInput}
                   type="number"
                   name="price"
+                  value={rate}
+                  onChange={(e)=> setRate(e.target.value)}
+                  min={product?.price}
                 />
                 <button
                   type="button"
                   className="bg-gray-100 rounded-md px-5 py-3"
+                  onClick={incrementBid}
                 >
                   <AiOutlinePlus />
                 </button>
                 <button
                   type="submit"
-                  className={`py-3 px-8 rounded-lg ${"bg-gray-400 text-gray-700 cursor-not-allowed"}`}
+                  className={`py-3 px-8 rounded-lg ${product?.isSoldout || !product?.isverify ? "bg-gray-400 text-gray-700 cursor-not-allowed" : 'bg-green text-white cursor-pointer'}`}
+                  disabled={product?.isSoldout || !product?.isverify}
                 >
                   Submit
                 </button>
@@ -230,7 +265,7 @@ export const ProductDetails = () => {
               </div>
             )}
             {activeTab === "auctionHistory" && (
-              <AuctionHistory bitAmount={product?.biddingPrice} />
+              <AuctionHistory history={history}/>
             )}
             {activeTab === "reviews" && (
               <div className="reviews-tab shadow-s3 p-8 rounded-md">
@@ -255,13 +290,17 @@ export const ProductDetails = () => {
   );
 };
 
-export const AuctionHistory = ({ bitAmount }) => {
+export const AuctionHistory = ({history}) => {
   return (
     <div className="shadow-s1 p-8 rounded-lg">
       <Title level={5} className="font-normal">
         Auction History
       </Title>
       <hr className="my-5" />
+
+      {history?.length === 0 ? (
+        <h2 className="m-2">No Bidding Record Found!</h2>
+      ): (
       <div className="relative overflow-x-auto rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100">
@@ -281,15 +320,21 @@ export const AuctionHistory = ({ bitAmount }) => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white">
-              <td className="px-6 py-4 text-gray-900">2024-08-17</td>
-              <td className="px-6 py-4 text-gray-500">{bitAmount}</td>
-              <td className="px-6 py-4 text-gray-900">Jacob</td>
+            {history.map((item,index)=>(
+            <tr className="bg-white border-b hover:bg-gray-50" key={index}>
+              <td className="px-6 py-4 text-gray-900">
+                <DateFormatter date={item?.createdAt} />
+              </td>
+              <td className="px-6 py-4 text-gray-500">{item?.price}</td>
+              <td className="px-6 py-4 text-gray-900">{item?.user?.name}</td>
               <td className="px-6 py-4 text-gray-900">Approved</td>
             </tr>
+            ))}
           </tbody>
         </table>
       </div>
+
+       )}
     </div>
   );
 };
