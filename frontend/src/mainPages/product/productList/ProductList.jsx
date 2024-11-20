@@ -24,6 +24,12 @@ export const Productlist = () => {
      
   }
 
+  const handleSellProduct = async(productId)=>{
+    
+    
+ }
+
+
   
   if(isLoading){
     return <Loader />
@@ -36,7 +42,6 @@ export const Productlist = () => {
         </div>
     )
  }
-
 
 
 
@@ -58,7 +63,7 @@ export const Productlist = () => {
         </div>
         <hr className="my-5" />
 
-        <Table products={userproducts} delProduct={handleDeleteProduct} isAdmin={true} />
+        <Table products={userproducts} delProduct={handleDeleteProduct} isAdmin={true} handleSellProduct={handleSellProduct}/>
       </section>
     </>
   );

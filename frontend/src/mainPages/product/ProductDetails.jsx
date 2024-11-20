@@ -1,4 +1,4 @@
-import { Body, Caption, Container, DateFormatter, Title } from "../../router";
+import { Body, Caption, Container, DateFormatter, Loader, Title } from "../../router";
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
 import { commonClassNameOfInput } from "../../components/common/Design";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../redux/features/ProductSlice";
-import { fetchBiddingHistory } from "../../redux/features/biddingSlice";
+import { fetchBiddingHistory, placeBid } from "../../redux/features/biddingSlice";
+import { toast } from "react-toastify";
 
 
 
@@ -18,7 +19,7 @@ export const ProductDetails = () => {
 
   const dispatch=useDispatch()
   const { product }=useSelector((state)=> state.product)
-  const { history }=useSelector((state)=> state.bidding)
+  const { history,isLoading }=useSelector((state)=> state.bidding)
 
 
 
@@ -40,12 +41,9 @@ export const ProductDetails = () => {
     }else if(product){
       setRate(product?.price)
     }
-  },[])
+  },[history,product])
   
 
-  const BidSaveFill =()=>{
-    
-  }
 
   const incrementBid =()=>{
      setRate((prev) => prev + 1)
@@ -55,6 +53,28 @@ export const ProductDetails = () => {
     setActiveTab(tab);
   };
 
+
+  const BidSaveFill = async(e)=>{
+     e.preventDefault();
+
+     if(product.price > rate){
+       return toast.error('your bid must be equal or higher than product price!')
+      }
+
+      const formData={
+        price: rate,
+        productId: id,
+      }
+
+      try {
+        await dispatch(placeBid(formData)).unwrap()
+        dispatch(fetchBiddingHistory(id));
+      } catch (error) {
+        return toast.error('An error occured while placing bid')
+      }
+  };
+
+  if(isLoading) return <Loader />
   if (!product) return <p className="mt-28 ms-10">Product not found</p>;
 
   return (
@@ -120,9 +140,9 @@ export const ProductDetails = () => {
             <Title className="flex items-center gap-2 my-5">
               Price: <Caption>${product.price}</Caption>
             </Title>
-            <Title className="flex items-center gap-2">
+            <Title className="flex items-center gap-2 max-w-full overflow-hidden">
               Current bid:{" "}
-              <Caption className="text-3xl">${rate ? rate : product?.price}</Caption>
+              <Caption className="text-3xl">${rate}</Caption>
             </Title>
 
             <div className="p-5 px-5 md:px-10 shadow-s3 py-8">
