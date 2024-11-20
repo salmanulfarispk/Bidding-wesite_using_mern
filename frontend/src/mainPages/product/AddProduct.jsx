@@ -75,7 +75,8 @@ export const AddProduct = () => {
 
       await dispatch(createProduct(formData))
 
-       if (isSuccess) {
+       if(isSuccess) {
+        setProduct({})
         navigate('/product');
        }
 
@@ -131,7 +132,7 @@ export const AddProduct = () => {
               <Caption className="mb-2">
                 Weight of piece <span className=" text-purple-400 italic">(kg)</span>
               </Caption>
-              <input type="number" name="weigth" value={product?.weight} onChange={handleInput} placeholder="weigth" className={`${commonClassNameOfInput}`} />
+              <input type="number" name="weight" value={product?.weight} onChange={handleInput} placeholder="weigth" className={`${commonClassNameOfInput}`} />
             </div>
             <div className="w-1/2">
               <Caption className="mb-2">Price Range*</Caption>

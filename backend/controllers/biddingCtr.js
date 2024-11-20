@@ -22,7 +22,7 @@ const getBiddingHistory = asyncHandler(async(req,res)=>{
 const sellProduct=asyncHandler(async(req,res)=>{
 
     const { productId } = req.body;
-    const userId = req.user.id;
+    const userId = req.user.id;    
   
     const product = await Product.findById(productId);
     if (!product) {
@@ -110,7 +110,7 @@ const placeBid=asyncHandler(async(req,res)=>{
 
     await existingUserBid.save();
 
-    res.status(200).json({ biddingProduct: existingUserBid });
+     return res.status(200).json({ biddingProduct: existingUserBid });
 
   } else {
 

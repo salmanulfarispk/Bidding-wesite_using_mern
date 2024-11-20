@@ -5,13 +5,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { UseRedirectLogoutUser } from "../../../hooks/useRedirectLogoutUser";
 import { deleteProduct, getAllUsersProduct } from "../../../redux/features/ProductSlice";
+import { sellProductByUser } from "../../../redux/features/biddingSlice";
 
 export const Productlist = () => {
 
   UseRedirectLogoutUser('/')
   const dispatch=useDispatch()
-  const { user }=useSelector((state)=> state.auth)
-  const { userproducts,isLoading } =useSelector((state) => state.product)
+  const { user }=useSelector((state)=> state.auth || {})
+  const { userproducts,isLoading } =useSelector((state) => state.product || {})
   
   useEffect(()=>{
     dispatch(getAllUsersProduct())
@@ -25,8 +26,9 @@ export const Productlist = () => {
   }
 
   const handleSellProduct = async(productId)=>{
-    
-    
+    await dispatch(sellProductByUser({productId: productId}))
+    await dispatch(getAllUsersProduct())
+
  }
 
 

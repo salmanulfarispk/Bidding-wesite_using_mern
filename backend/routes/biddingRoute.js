@@ -11,4 +11,4 @@ router.post("/sell", protect, isSeller, sellProduct);
 router.post("/", protect, placeBid);
 
 
-module.exports = router;
+module.exports = router; 

@@ -26,7 +26,7 @@ export const Income = () => {
           <div className="shadow-s3 py-16 my-16 border border-green bg-green_100 p-8 flex items-center text-center justify-center gap-5 flex-col rounded-xl">
             <CgDollar size={80} className="text-green" />
             <div>
-              <Title level={1}>${commisionIncome?.commissionBalance}</Title>
+              <Title level={1}>${commisionIncome?.commissionBalance.toFixed(2)}</Title>
               <Title>Total Income</Title>
             </div>
           </div>

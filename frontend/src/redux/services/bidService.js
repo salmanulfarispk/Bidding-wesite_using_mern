@@ -22,7 +22,8 @@ const fetchBiddingHistory= async(id)=>{
 
 const sellProductByUser= async(productId)=>{
     
-    const response=await axios.post(`${BIDDING_URL}/sell}`,productId) 
+    const response = await axios.post(`${BIDDING_URL}/sell`, productId); 
+    
     return response.data;
 };
 

@@ -1,10 +1,16 @@
 import { TiEyeOutline } from "react-icons/ti";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+
 
 
  export const Table = ({ products, handleSellProduct, delProduct, isAdmin, isWon }) => {
+
+  const location=useLocation()
+  const pathname= location.pathname === '/product/admin';
+  
+
   return (
     <>
       <div className="relative overflow-x-auto rounded-lg">
@@ -34,12 +40,13 @@ import { NavLink } from "react-router-dom";
                   Status
                 </th>
               )}
+              
               {!isWon && (
                 <>
                   <th scope="col" className="px-6 py-3">
                     Verify
                   </th>
-                  {!isAdmin && (
+                  {isAdmin  && (
                     <th scope="col" className="px-6 py-3">
                       Sold
                     </th>
@@ -75,15 +82,16 @@ import { NavLink } from "react-router-dom";
                         </div>
                       )}
                     </td>
-                    {!isAdmin && (
+                    {isAdmin && (
                       <td className="py-3 px-6">
                         {product?.isSoldout ? (
+                          
                           <button className="bg-red-500 text-white py-1 px-3 rounded-lg" disabled>
                             Sold Out
                           </button>
                         ) : (
                           <button
-                            className={`py-1 px-3 rounded-lg ${product?.isverify ? "bg-green text-white" : "bg-gray-300 text-gray-700 cursor-not-allowed"}`}
+                            className={`py-1 px-3 rounded-lg ${product?.isverify ? "bg-green text-white cursor-pointer" : "bg-gray-300 text-gray-700 cursor-not-allowed"} ${pathname ? 'cursor-not-allowed' : 'cursor-default'}`}
                             onClick={() => handleSellProduct(product._id)}
                             disabled={!product?.isverify}
                           >
@@ -92,6 +100,9 @@ import { NavLink } from "react-router-dom";
                         )}
                       </td>
                     )}
+                      
+                   
+
                     <td className="px-6 py-4 text-center flex items-center gap-3 mt-1">
                       <NavLink to="#" type="button" className="font-medium text-indigo-500">
                         <TiEyeOutline size={25} />
@@ -114,6 +125,7 @@ import { NavLink } from "react-router-dom";
                     </td>
                   </>
                 )}
+
                 {isWon && (
                   <td className="py-3 px-6">
                     <button className="bg-green text-white py-1 px-3 rounded-lg" disabled>
