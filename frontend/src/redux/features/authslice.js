@@ -4,7 +4,7 @@ import {toast } from 'react-toastify'
 
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem('user')) || null,
+   user: JSON.parse(localStorage.getItem('user')) || null,
    users:[],
    isError: false,
    isSuccess: false,

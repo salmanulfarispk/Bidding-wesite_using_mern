@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../redux/features/ProductSlice";
 import { fetchBiddingHistory, placeBid } from "../../redux/features/biddingSlice";
 import { toast } from "react-toastify";
+import { ProductReviews } from "../../components/ProductReviews";
 
 
 
@@ -76,6 +77,9 @@ export const ProductDetails = () => {
 
   if(isLoading) return <Loader />
   if (!product) return <p className="mt-28 ms-10">Product not found</p>;
+
+
+
 
   return (
     <section className="pt-24 px-2 md:px-8">
@@ -293,9 +297,7 @@ export const ProductDetails = () => {
                   Reviews
                 </Title>
                 <hr className="my-5" />
-                <Title level={5} className=" font-normal text-red-500">
-                  Coming Soon!
-                </Title>
+                   <ProductReviews productId={product?._id}/>
               </div>
             )}
             {activeTab === "moreProducts" && (

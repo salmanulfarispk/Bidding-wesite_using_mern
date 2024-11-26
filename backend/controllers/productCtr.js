@@ -4,7 +4,7 @@ const slugify= require('slugify')
 const cloudinary = require("cloudinary").v2;
 const fs=require('fs')
 const BiddingProduct = require("../models/biddingProduct");
-const { default: mongoose } = require("mongoose");
+
 
 
 
@@ -20,7 +20,7 @@ const createProduct = asyncHandler(async(req,res)=>{
         strict: true,
 
     })
-
+ 
     let slug = originalSlug;
     let suffix = 1;
   

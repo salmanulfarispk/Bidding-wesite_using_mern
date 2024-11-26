@@ -1,23 +1,35 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import Select from "react-select";
-import { getallCategory } from "../../redux/features/categorySlice";
 import { Loader } from "./Loader";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+export const CATEGORY_URL= `${backendUrl}/category/`
+import axios from 'axios'
+
 
 export const CategoryDropDown = (props) => {
 
-  const dispatch=useDispatch()
-  const { categorys,isLoading }=useSelector(state => state.category)
+ const [Allcategory,setAllCategory]=useState([])
+ const [isLoading,setLoading]=useState(true)
+
+
+  const getAllcategory= async()=>{
+    const response=await axios.get(CATEGORY_URL + 'all-categorys')
+    if(response.data){
+      setAllCategory(response.data)
+      setLoading(false)
+    }
+    return response.data;
+  };
 
   useEffect(()=>{
-     dispatch(getallCategory())
-  },[dispatch])
+      getAllcategory()
+  },[])
 
 
-   const allCategory= categorys?.map((category)=>{
+   const allCategory= Allcategory?.map((category,index)=>{
       return {
-        label: category?.title,
-        value: category?._id
+        label: category,
+        value: index,
       }
    });
 
@@ -27,6 +39,7 @@ export const CategoryDropDown = (props) => {
      
   return (
     <>
+    
        { isLoading ? <Loader /> :
        <Select id="category" 
        onChange={handleChange}   // Updates parent state when a new category is selected

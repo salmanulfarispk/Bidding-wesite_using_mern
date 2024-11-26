@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/categoryModel");
+const Product=require('../models/productModel')
 
 
 
@@ -40,6 +41,21 @@ const createCategory = asyncHandler(async (req, res) => {
     }
   });
 
+  
+  const CategoryList = asyncHandler(async(req,res)=> {
+   
+    const categories = await Product.find({}).select('category');
+    if (!categories) {
+      res.status(404);
+      throw new Error('No categories found');
+    };
+  
+    const uniqueCategories = [...new Set(categories.map(cat => cat.category))];
+
+    res.status(200).json(uniqueCategories);
+
+
+  });
 
 
 
@@ -106,6 +122,7 @@ module.exports = {
     getAllCategory,
      getCategory, 
      updateCategory,
-     deleteCategory 
+     deleteCategory ,
+     CategoryList
 
  };
