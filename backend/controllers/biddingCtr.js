@@ -134,10 +134,12 @@ const placeBid=asyncHandler(async(req,res)=>{
 
 
 
+
 module.exports={
  
     getBiddingHistory,
     sellProduct,
-    placeBid
+    placeBid,
+   
 
 }

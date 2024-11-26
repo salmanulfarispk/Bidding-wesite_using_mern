@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const Comment=require('../models/commenModel')
+const Comment=require('../models/commenModel');
+const Notification = require("../models/NotificModel");
 
 
 
@@ -35,11 +36,17 @@ const  getComments = asyncHandler(async(req,res)=>{
 
 
 
-
-
+const AllNotification=  asyncHandler(async(req,res)=>{
+    
+    const notification=await Notification.find({})
+     
+    res.status(201).json(notification)
+  
+});
 
 
 module.exports= {
     CreateComment,
-    getComments
+    getComments,
+    AllNotification
 }

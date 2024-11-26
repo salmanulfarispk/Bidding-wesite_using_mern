@@ -5,7 +5,7 @@ import { UseRedirectLogoutUser } from "../../hooks/useRedirectLogoutUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../redux/features/ProductSlice";
-
+import io from "socket.io-client"
 
 
 const initialState = {
@@ -28,6 +28,7 @@ export const AddProduct = () => {
    const navigate=useNavigate()
    
    const { isSuccess } = useSelector((state) => state.product);
+   const { user } = useSelector((state) => state.auth);
    const[product,setProduct]=useState(initialState)
    const [productImage, setProductImage] = useState('');
    const [imgpreview,setImageprev] = useState(null);
@@ -50,7 +51,7 @@ export const AddProduct = () => {
         [name]: value
       })
     };
-
+  
   
   
     const handleAddProduct =async(e)=>{
@@ -73,12 +74,24 @@ export const AddProduct = () => {
           formData.append('category',category.label)
          }
 
+       const socket= io('http://localhost:5000');
+       
       await dispatch(createProduct(formData))
+      
+       const data={
+         userId: user?._id,
+         name: user?.name,
+         message: `${user?.name} creates a new product as ${title}`
+       }
+
+      socket.emit('creates-notific', data)
+
 
        if(isSuccess) {
         setProduct({})
         navigate('/product');
        }
+
 
     };
 

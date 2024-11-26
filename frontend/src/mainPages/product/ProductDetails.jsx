@@ -9,11 +9,11 @@ import { getProduct } from "../../redux/features/ProductSlice";
 import { fetchBiddingHistory, placeBid } from "../../redux/features/biddingSlice";
 import { toast } from "react-toastify";
 import { ProductReviews } from "../../components/ProductReviews";
-
-
+import io from "socket.io-client"
 
 
 export const ProductDetails = () => {
+  
   const [activeTab, setActiveTab] = useState("description");
   const [rate,setRate]=useState(0)
   const { id } = useParams();
@@ -21,8 +21,8 @@ export const ProductDetails = () => {
   const dispatch=useDispatch()
   const { product }=useSelector((state)=> state.product)
   const { history,isLoading }=useSelector((state)=> state.bidding)
-
-
+   const [count,setCount]=useState(0)
+   
 
   useEffect(()=>{
     dispatch(getProduct(id))
@@ -44,8 +44,28 @@ export const ProductDetails = () => {
     }
   },[history,product])
   
+  useEffect(()=>{
+    const socket= io('http://localhost:5000');
 
+    socket.emit('join-product',id)
 
+     socket.emit("gets-count",id)
+
+     socket.on("review-counts",(data)=>{
+         if(data.productId === id){
+          setCount(data.totalComments)
+         }
+        
+     })
+
+  
+   return ()=> {
+    socket.disconnect()
+  };
+
+  },[id])
+
+  
   const incrementBid =()=>{
      setRate((prev) => prev + 1)
   }
@@ -79,7 +99,8 @@ export const ProductDetails = () => {
   if (!product) return <p className="mt-28 ms-10">Product not found</p>;
 
 
-
+ 
+ 
 
   return (
     <section className="pt-24 px-2 md:px-8">
@@ -95,9 +116,13 @@ export const ProductDetails = () => {
             </div>
           </div>
           <div className="w-full md:w-1/2">
+             <div className="flex justify-between">
             <Title level={2} className="capitalize">
               {product?.title}
             </Title>
+
+            </div>
+
             <div className="flex gap-5 mb-2">
               <div className="flex text-green ">
                 <IoIosStar size={20} />
@@ -106,7 +131,7 @@ export const ProductDetails = () => {
                 <IoIosStarHalf size={20} />
                 <IoIosStarOutline size={20} />
               </div>
-              <Caption>(2 customer reviews)</Caption>
+              <Caption>({count}  customer reviews)</Caption>
             </div>
             <Body>
               {product?.description.slice(0, 150)}
@@ -204,7 +229,7 @@ export const ProductDetails = () => {
               }`}
               onClick={() => handleTabClick("reviews")}
             >
-              Reviews(2)
+              Reviews({count})
             </button>
             <button
               className={`rounded-md px-10 py-4 text-black shadow-s3 ${

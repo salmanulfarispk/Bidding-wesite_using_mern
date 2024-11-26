@@ -17,8 +17,6 @@ export const ProductReviews = ({productId}) => {
     const { user }=useSelector((state)=> state.auth)
      
 
-  
-
   const socket = useRef(null);
 
   useEffect(()=>{
@@ -26,7 +24,6 @@ export const ProductReviews = ({productId}) => {
     socket.current = io('http://localhost:5000');
 
    axios.get(`${BIDDING_URL}/${productId}/comments`).then((response)=>{
-    
      setAllComments(response.data)
    })
 
@@ -54,7 +51,6 @@ const handleSubmit =async(e)=>{
     await axios.post(BIDDING_URL+"create-commment",newComment)
 
     socket.current.emit("new-comment",newComment)
-
 
     setComment('')
 
